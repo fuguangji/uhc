@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027 冬季 UHC 錦標賽 | 礦物裝備</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'], display: ['"Syncopate"', 'sans-serif'] }, colors: { polar: { 50: '#f0f7ff', 100: '#e0effe', 200: '#bae0fd', 300: '#7cc8fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#0369a1', 900: '#0c4a6e', 950: '#082f49' } } } } }
+    </script>
+    <style>
+        :root { --light-glass: rgba(255, 255, 255, 0.75); --light-border: rgba(255, 255, 255, 0.5); --light-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.15); --blur-effect: blur(16px); }
+        body { background-color: #f0f7ff; color: #0c4a6e; overflow-x: hidden; font-family: 'Noto Sans TC', sans-serif; }
+        .bg-overlay { position: fixed; inset: 0; z-index: -2; background: linear-gradient(to bottom, rgba(240, 247, 255, 0.5) 0%, rgba(224, 239, 254, 0.9) 100%); backdrop-filter: blur(8px); }
+        .glass-card { background: var(--light-glass); backdrop-filter: var(--blur-effect); border: 1px solid var(--light-border); box-shadow: var(--light-shadow); border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .text-gradient-polar { background: linear-gradient(135deg, #082f49 0%, #0284c7 60%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #webgl-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-overlay"></div>
+    <div id="webgl-container"></div>
+
+    <header id="main-header" class="fixed w-full z-50 top-0 transition-all duration-500 py-3 px-6">
+        <div id="nav-container" class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center glass-card shadow-sm border-white/50">
+            <a href="index.html" class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg">
+                <i data-lucide="snowflake" class="text-polar-500"></i>
+                <span class="font-display tracking-wider text-gradient-polar">WINTER UHC</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900">
+                <a href="index.html" class="hover:text-polar-500 transition-colors">首頁</a>
+                <a href="encyclopedia.html" class="hover:text-polar-500 transition-colors">系統百科</a>
+                <a href="database.html" class="text-polar-500 font-bold">礦物裝備</a>
+                <a href="rules.html" class="hover:text-polar-500 transition-colors">賽事規則</a>
+                <a href="progress.html" class="hover:text-polar-500 transition-colors">開發進度</a>
+                <a href="register.html" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all">立即報名</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto min-h-screen">
+        <div class="text-center mb-12">
+            <span class="text-polar-600 font-mono text-sm uppercase tracking-widest">Database</span>
+            <h1 class="text-3xl md:text-4xl font-bold text-polar-950 mt-2 mb-3 tracking-wider">物資與裝備資料庫</h1>
+            
+            <div class="flex justify-center gap-4 mt-8">
+                <button id="btn-minerals" onclick="switchTab('minerals')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all bg-polar-900 text-white shadow-md">礦物資料庫</button>
+                <button id="btn-equipment" onclick="switchTab('equipment')" class="px-6 py-3 rounded-xl font-bold text-sm transition-all glass-card text-polar-900 hover:bg-white/80">裝備資料庫</button>
+            </div>
+        </div>
+
+        <div id="tab-minerals" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">冰川鐵礦</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">常見</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">產於淺層雪地下方，是用於製作基礎保暖工具的必要金屬。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">硬度評級：中等</div>
+            </div>
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">凍土晶石</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">稀有</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">冰洞深處的結晶，具備隔熱特性，可用於強化防具。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">硬度評級：高</div>
+            </div>
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">深淵藍鑽</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">極稀有</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">僅在地圖中央高難度區域生成的頂級礦物。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">硬度評級：極高</div>
+            </div>
+        </div>
+
+        <div id="tab-equipment" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">厚呢絨大衣</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">防具</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">顯著降低寒冷環境下的體溫流失速率，兼具基本防護力。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">屬性：中等防禦</div>
+            </div>
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">冰晶複合弓</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">遠距</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">射程優秀的狙擊武器，在雪地中具備極佳的命中穩定度。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">屬性：高攻擊力</div>
+            </div>
+            <div class="glass-card p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <h4 class="font-bold text-polar-950 text-xl">破冰戰斧</h4>
+                    <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">近戰</span>
+                </div>
+                <p class="text-polar-700 text-base leading-relaxed mb-5">揮擊速度慢但具備高額破甲與硬直效果的重型近戰利器。</p>
+                <div class="text-sm text-polar-600 font-mono font-medium">屬性：極高攻擊力</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-base text-polar-800">
+            <div class="flex items-center gap-3 font-bold tracking-widest"><i data-lucide="snowflake" class="text-polar-500"></i><span class="font-display">WINTER UHC 2027</span></div>
+            <p class="text-sm text-polar-600">&copy; 2027 Winter UHC Championship. 非官方社群賽事。</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function switchTab(type) {
+            const minTab = document.getElementById('tab-minerals');
+            const eqTab = document.getElementById('tab-equipment');
+            const btnMin = document.getElementById('btn-minerals');
+            const btnEq = document.getElementById('btn-equipment');
+
+            if (type === 'minerals') {
+                minTab.classList.remove('hidden'); minTab.classList.add('grid');
+                eqTab.classList.add('hidden'); eqTab.classList.remove('grid');
+                btnMin.className = "px-6 py-3 rounded-xl font-bold text-sm transition-all bg-polar-900 text-white shadow-md";
+                btnEq.className = "px-6 py-3 rounded-xl font-bold text-sm transition-all glass-card text-polar-900 hover:bg-white/80";
+            } else {
+                eqTab.classList.remove('hidden'); eqTab.classList.add('grid');
+                minTab.classList.add('hidden'); minTab.classList.remove('grid');
+                btnEq.className = "px-6 py-3 rounded-xl font-bold text-sm transition-all bg-polar-900 text-white shadow-md";
+                btnMin.className = "px-6 py-3 rounded-xl font-bold text-sm transition-all glass-card text-polar-900 hover:bg-white/80";
+            }
+        }
+        
+        // Lightweight Static Background for subpages (Reduced complexity to save tokens, still looks good)
+        document.getElementById('webgl-container').style.background = 'radial-gradient(circle at 50% 50%, rgba(124,200,252,0.1) 0%, rgba(8,47,73,0.05) 100%)';
+    </script>
+</body>
+</html>

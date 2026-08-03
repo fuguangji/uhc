@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027 冬季 UHC 錦標賽 | 首頁</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'], display: ['"Syncopate"', 'sans-serif'] },
+                    colors: { polar: { 50: '#f0f7ff', 100: '#e0effe', 200: '#bae0fd', 300: '#7cc8fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#0369a1', 900: '#0c4a6e', 950: '#082f49' } }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --light-glass: rgba(255, 255, 255, 0.75);
+            --light-border: rgba(255, 255, 255, 0.5);
+            --light-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.15);
+            --blur-effect: blur(16px);
+        }
+        body { background-color: #f0f7ff; color: #0c4a6e; overflow-x: hidden; font-family: 'Noto Sans TC', sans-serif; }
+        
+        .bg-slideshow { position: fixed; inset: 0; z-index: -3; background-color: #082f49; }
+        .slide-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1); transition: opacity 2s ease-in-out, transform 12s ease-out; }
+        .slide-img.active { opacity: 0.6; transform: scale(1.05); }
+        .bg-overlay { position: fixed; inset: 0; z-index: -2; background: linear-gradient(to bottom, rgba(240, 247, 255, 0.3) 0%, rgba(224, 239, 254, 0.8) 100%); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+        
+        .glass-card { background: var(--light-glass); backdrop-filter: var(--blur-effect); -webkit-backdrop-filter: var(--blur-effect); border: 1px solid var(--light-border); box-shadow: var(--light-shadow); border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .text-gradient-polar { background: linear-gradient(135deg, #082f49 0%, #0284c7 60%, #0ea5e9 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #webgl-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f7ff; }
+        ::-webkit-scrollbar-thumb { background: #bae0fd; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="slideshow" class="bg-slideshow">
+        <img src="https://images.unsplash.com/photo-1517411032315-54ef2cb783bb?q=80&w=1920&auto=format&fit=crop" class="slide-img active" alt="BG">
+        <img src="https://images.unsplash.com/photo-1483921020237-2ff51e8e4b22?q=80&w=1920&auto=format&fit=crop" class="slide-img" alt="BG">
+        <img src="https://images.unsplash.com/photo-1548264955-a690fb055c56?q=80&w=1920&auto=format&fit=crop" class="slide-img" alt="BG">
+    </div>
+    <div class="bg-overlay"></div>
+    <div id="webgl-container"></div>
+
+    <header id="main-header" class="fixed w-full z-50 top-0 transition-all duration-500 py-6 px-6">
+        <div id="nav-container" class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center transition-all duration-500 rounded-2xl border border-transparent">
+            <a href="/" class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg group">
+                <i data-lucide="snowflake" class="text-polar-500 group-hover:rotate-180 transition-transform duration-700"></i>
+                <span class="font-display tracking-wider text-gradient-polar">WINTER UHC</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900">
+                <a href="./encyclopedia" class="hover:text-polar-500 transition-colors">系統百科</a>
+                <a href="./database" class="hover:text-polar-500 transition-colors">礦物裝備</a>
+                <a href="./rules" class="hover:text-polar-500 transition-colors">賽事規則</a>
+                <a href="./progress" class="hover:text-polar-500 transition-colors">開發進度</a>
+                <a href="./register" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg shadow-polar-900/20 hover:bg-polar-800 transition-all">立即報名</a>
+            </nav>
+
+            <button id="mobile-menu-btn" class="md:hidden text-polar-950 p-1"><i data-lucide="menu"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 glass-card p-6 flex flex-col gap-4 text-polar-900">
+            <a href="./encyclopedia" class="mobile-link text-base">系統百科</a>
+            <a href="./database" class="mobile-link text-base">礦物裝備庫</a>
+            <a href="./rules" class="mobile-link text-base">新手與規則</a>
+            <a href="./progress" class="mobile-link text-base">開發進度</a>
+            <a href="./register" class="mobile-link text-polar-500 font-bold text-base">立即報名</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center relative pt-20">
+            <div class="max-w-4xl mx-auto p-8 relative z-10 reveal-on-scroll">
+                <span class="inline-block px-4 py-1.5 mb-6 rounded-full bg-polar-100/80 backdrop-blur-sm text-polar-700 text-sm font-bold tracking-widest uppercase border border-polar-200 shadow-sm">
+                    Bloxd.io Custom Tournament
+                </span>
+                
+                <h1 class="text-6xl md:text-8xl font-black text-polar-950 tracking-tight mb-6 leading-tight drop-shadow-sm">
+                    2027 WINTER UHC
+                </h1>
+                
+                <p class="text-lg md:text-xl text-polar-800 font-medium tracking-wide mb-12 max-w-2xl mx-auto leading-relaxed">
+                    在極地中存活到最後的硬核生存錦標賽。
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="./register" class="w-full sm:w-auto px-8 py-4 bg-polar-900 text-white font-bold rounded-2xl shadow-xl shadow-polar-900/20 hover:bg-polar-800 hover:-translate-y-1 transition-all tracking-widest text-base flex items-center justify-center gap-2">
+                        <span>立即報名</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                    <a href="./encyclopedia" class="w-full sm:w-auto px-8 py-4 glass-card text-polar-900 font-bold rounded-2xl hover:bg-white/90 hover:-translate-y-1 transition-all tracking-widest text-base">
+                        觀看介紹
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-base text-polar-800">
+            <div class="flex items-center gap-3 font-bold tracking-widest">
+                <i data-lucide="snowflake" class="text-polar-500"></i>
+                <span class="font-display">WINTER UHC 2027</span>
+            </div>
+            <p class="text-sm text-polar-600">&copy; 2027 Winter UHC Championship. 非官方社群賽事。</p>
+        </div>
+    </footer>
+
+    <script>
+        // Slideshow Logic
+        const imgs = document.querySelectorAll('.slide-img');
+        let currentIndex = 0;
+        setInterval(() => {
+            imgs[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % imgs.length;
+            imgs[currentIndex].classList.add('active');
+        }, 8000);
+
+        // Navbar Scroll
+        const header = document.getElementById('main-header');
+        const container = document.getElementById('nav-container');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.replace('py-6', 'py-3');
+                container.classList.add('glass-card', 'shadow-sm', 'border-white/50');
+                container.classList.remove('border-transparent');
+            } else {
+                header.classList.replace('py-3', 'py-6');
+                container.classList.remove('glass-card', 'shadow-sm', 'border-white/50');
+                container.classList.add('border-transparent');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        // Icons
+        lucide.createIcons();
+
+        // Reveal on Scroll
+        setTimeout(() => {
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+                el.style.transition = 'all 0.8s ease-out';
+            });
+        }, 100);
+
+        function initThreeJSBackground() {
+            const container = document.getElementById('webgl-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1500);
+            camera.position.z = 800;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+
+            const isMobile = window.innerWidth < 768;
+            const particleCount = isMobile ? 400 : 1200;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = [];
+
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 2500;
+                positions[i+1] = (Math.random() - 0.5) * 2000;
+                positions[i+2] = (Math.random() - 0.5) * 1500;
+                velocities.push({ x: (Math.random() - 0.5) * 0.8, y: -Math.random() * 1.5 - 0.5, z: (Math.random() - 0.5) * 0.8 });
+            }
+
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const canvas = document.createElement('canvas');
+            canvas.width = 32; canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+            gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = gradient; ctx.fillRect(0, 0, 32, 32);
+
+            const material = new THREE.PointsMaterial({
+                size: isMobile ? 8 : 12,
+                map: new THREE.CanvasTexture(canvas),
+                transparent: true, opacity: 0.8, depthWrite: false,
+                blending: THREE.AdditiveBlending, color: 0xbae0fd
+            });
+
+            const particleSystem = new THREE.Points(geometry, material);
+            scene.add(particleSystem);
+
+            let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+            window.addEventListener('mousemove', (e) => {
+                targetX = (e.clientX - window.innerWidth / 2) * 0.15;
+                targetY = (e.clientY - window.innerHeight / 2) * 0.15;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                const posArr = particleSystem.geometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    const idx = i * 3; const v = velocities[i];
+                    posArr[idx] += v.x + Math.sin((posArr[idx+1] * 0.01) + i) * 0.5;
+                    posArr[idx+1] += v.y; posArr[idx+2] += v.z;
+                    if (posArr[idx+1] < -1000) posArr[idx+1] = 1000;
+                    if (posArr[idx] > 1250) posArr[idx] = -1250;
+                    if (posArr[idx] < -1250) posArr[idx] = 1250;
+                }
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+                mouseX += (targetX - mouseX) * 0.05; mouseY += (-targetY - mouseY) * 0.05;
+                camera.position.x += (mouseX - camera.position.x) * 0.02;
+                camera.position.y += (-mouseY - camera.position.y) * 0.02;
+                camera.lookAt(scene.position);
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+        initThreeJSBackground();
+    </script>
+</body>
+</html>

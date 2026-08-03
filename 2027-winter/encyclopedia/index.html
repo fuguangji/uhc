@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027 冬季 UHC 錦標賽 | 系統百科</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'], display: ['"Syncopate"', 'sans-serif'] }, colors: { polar: { 50: '#f0f7ff', 100: '#e0effe', 200: '#bae0fd', 300: '#7cc8fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#0369a1', 900: '#0c4a6e', 950: '#082f49' } } } } }
+    </script>
+    <style>
+        :root { --light-glass: rgba(255, 255, 255, 0.75); --light-border: rgba(255, 255, 255, 0.5); --light-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.15); --blur-effect: blur(16px); }
+        body { background-color: #f0f7ff; color: #0c4a6e; overflow-x: hidden; font-family: 'Noto Sans TC', sans-serif; }
+        .bg-overlay { position: fixed; inset: 0; z-index: -2; background: linear-gradient(to bottom, rgba(240, 247, 255, 0.5) 0%, rgba(224, 239, 254, 0.9) 100%); backdrop-filter: blur(8px); }
+        .glass-card { background: var(--light-glass); backdrop-filter: var(--blur-effect); border: 1px solid var(--light-border); box-shadow: var(--light-shadow); border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glass-card:hover { border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 20px 45px -10px rgba(14, 165, 233, 0.25); transform: translateY(-4px); }
+        .text-gradient-polar { background: linear-gradient(135deg, #082f49 0%, #0284c7 60%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #webgl-container { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-overlay"></div>
+    <div id="webgl-container"></div>
+
+    <header id="main-header" class="fixed w-full z-50 top-0 transition-all duration-500 py-3 px-6">
+        <div id="nav-container" class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center glass-card shadow-sm border-white/50 transition-all duration-500">
+            <a href="index.html" class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg group">
+                <i data-lucide="snowflake" class="text-polar-500 group-hover:rotate-180 transition-transform duration-700"></i>
+                <span class="font-display tracking-wider text-gradient-polar">WINTER UHC</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900">
+                <a href="index.html" class="hover:text-polar-500 transition-colors">首頁</a>
+                <a href="encyclopedia.html" class="text-polar-500 font-bold">系統百科</a>
+                <a href="database.html" class="hover:text-polar-500 transition-colors">礦物裝備</a>
+                <a href="rules.html" class="hover:text-polar-500 transition-colors">賽事規則</a>
+                <a href="progress.html" class="hover:text-polar-500 transition-colors">開發進度</a>
+                <a href="register.html" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all">立即報名</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-6 max-w-7xl mx-auto min-h-screen">
+        <div class="text-center mb-16">
+            <span class="text-polar-600 font-mono text-sm uppercase tracking-widest">Systems</span>
+            <h1 class="text-3xl md:text-4xl font-bold text-polar-950 mt-2 mb-3 tracking-wider">核心系統百科</h1>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="thermometer-snowflake" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">極地體溫管理</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">暴露在戶外會加速體溫流失。必須透過營火、穿著保暖衣物或食用熱食來回溫。</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="skull" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">永久死亡機制</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">本賽事無重生機會。玩家死亡後會切斷通訊並轉為觀戰視角，確保硬核氛圍。</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="heart-pulse" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">急救與醫療</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">取消自動回血。必須收集植物纖維製作醫療繃帶，並尋找掩護進行包紮。</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="cloud-snow" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">動態風雪氣候</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">隨機觸發暴風雪，大幅降低視野並增加體溫消耗，考驗小隊導航能力。</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="hammer" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">資源與鍛造</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">高階防具與特殊武器需要透過專屬工作台與稀有冰晶碎片合成。</p>
+                </div>
+            </div>
+            <div class="glass-card p-8 flex flex-col justify-between">
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-polar-100 text-polar-600 flex items-center justify-center mb-5 shadow-inner"><i data-lucide="monitor-play" class="w-7 h-7"></i></div>
+                    <h3 class="text-xl font-bold text-polar-950 mb-3">平台整合</h3>
+                    <p class="text-polar-700 text-base leading-relaxed">基於 Bloxd.io 自定義模式，保證流暢的網頁端多人連線與精準動作判定。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-base text-polar-800">
+            <div class="flex items-center gap-3 font-bold tracking-widest">
+                <i data-lucide="snowflake" class="text-polar-500"></i><span class="font-display">WINTER UHC 2027</span>
+            </div>
+            <p class="text-sm text-polar-600">&copy; 2027 Winter UHC Championship. 非官方社群賽事。</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function initThreeJSBackground() {
+            const container = document.getElementById('webgl-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1500);
+            camera.position.z = 800;
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            container.appendChild(renderer.domElement);
+            const particleCount = window.innerWidth < 768 ? 400 : 1200;
+            const geometry = new THREE.BufferGeometry();
+            const positions = new Float32Array(particleCount * 3);
+            const velocities = [];
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                positions[i] = (Math.random() - 0.5) * 2500; positions[i+1] = (Math.random() - 0.5) * 2000; positions[i+2] = (Math.random() - 0.5) * 1500;
+                velocities.push({ x: (Math.random() - 0.5) * 0.8, y: -Math.random() * 1.5 - 0.5, z: (Math.random() - 0.5) * 0.8 });
+            }
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            const canvas = document.createElement('canvas'); canvas.width = 32; canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+            gradient.addColorStop(0, 'rgba(255, 255, 255, 1)'); gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.8)'); gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = gradient; ctx.fillRect(0, 0, 32, 32);
+            const material = new THREE.PointsMaterial({ size: window.innerWidth < 768 ? 8 : 12, map: new THREE.CanvasTexture(canvas), transparent: true, opacity: 0.8, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xbae0fd });
+            const particleSystem = new THREE.Points(geometry, material); scene.add(particleSystem);
+            function animate() {
+                requestAnimationFrame(animate);
+                const posArr = particleSystem.geometry.attributes.position.array;
+                for (let i = 0; i < particleCount; i++) {
+                    const idx = i * 3; const v = velocities[i];
+                    posArr[idx] += v.x + Math.sin((posArr[idx+1] * 0.01) + i) * 0.5; posArr[idx+1] += v.y; posArr[idx+2] += v.z;
+                    if (posArr[idx+1] < -1000) posArr[idx+1] = 1000; if (posArr[idx] > 1250) posArr[idx] = -1250; if (posArr[idx] < -1250) posArr[idx] = 1250;
+                }
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+                renderer.render(scene, camera);
+            }
+            animate();
+            window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+        }
+        initThreeJSBackground();
+    </script>
+</body>
+</html>

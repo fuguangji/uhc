@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="zh-TW" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NovaCircuit UHC Championship | NovaCircuit超硬核模式錦標賽</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Three.js (用於進階大氣/發光雪花背景) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Noto Sans TC"', "sans-serif"],
+              display: ['"Syncopate"', "sans-serif"],
+            },
+            colors: {
+              navy: {
+                800: "#061626",
+                900: "#030b14",
+                950: "#01050a",
+              },
+              neon: {
+                blue: "#0ea5e9",
+                cyan: "#22d3ee",
+                gold: "#fbbf24",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --glass-bg: rgba(3, 11, 20, 0.45);
+        --glass-border: rgba(34, 211, 238, 0.15);
+        --glass-blur: blur(24px);
+        --neon-glow: 0 0 20px rgba(14, 165, 233, 0.3);
+      }
+
+      body {
+        background-color: #01050a;
+        color: #f1f5f9;
+        overflow-x: hidden;
+        font-family: "Noto Sans TC", sans-serif;
+      }
+
+      /* 玻璃擬態面板 */
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        border: 1px solid var(--glass-border);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border-radius: 16px;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .glass-panel:hover {
+        border-color: rgba(34, 211, 238, 0.4);
+        box-shadow:
+          var(--neon-glow),
+          0 15px 40px rgba(0, 0, 0, 0.6);
+        transform: translateY(-4px);
+      }
+
+      /* 文字漸層 */
+      .text-gradient {
+        background: linear-gradient(
+          135deg,
+          #ffffff 0%,
+          #22d3ee 50%,
+          #0ea5e9 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .text-gradient-gold {
+        background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Hero 標題鏤空特效 */
+      .title-outline {
+        -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.9);
+        color: transparent;
+      }
+
+      /* 滾動揭示動畫 */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.8s ease-out,
+          transform 0.8s ease-out;
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* 背景與疊加層 */
+      #webgl-container {
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+        pointer-events: none;
+      }
+      .bg-gradient-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background: radial-gradient(
+          ellipse at top,
+          rgba(6, 22, 38, 0.4) 0%,
+          rgba(1, 5, 10, 0.9) 100%
+        );
+      }
+
+      /* 按鈕霓虹光澤特效 */
+      .btn-neon {
+        position: relative;
+        overflow: hidden;
+        background: #0ea5e9;
+        color: white;
+        transition: all 0.3s;
+      }
+      .btn-neon::after {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to right,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transform: rotate(45deg) translateX(-100%);
+        transition: transform 0.6s ease;
+      }
+      .btn-neon:hover::after {
+        transform: rotate(45deg) translateX(100%);
+      }
+      .btn-neon:hover {
+        box-shadow: 0 0 25px rgba(14, 165, 233, 0.6);
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #01050a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #0369a1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0ea5e9;
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-neon-blue selection:text-white">
+    <!-- 背景層 -->
+    <div id="webgl-container"></div>
+    <div class="bg-gradient-overlay"></div>
+
+    <!-- =========================================
+         Header: 動態透明導覽列
+         ========================================= -->
+    <header
+      id="navbar"
+      class="fixed w-full z-50 top-0 transition-all duration-500 bg-transparent border-b border-transparent py-5"
+    >
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+        <!-- 聯盟 LOGO -->
+        <a href="/uhc" class="flex items-center gap-3 group">
+          <div
+            class="w-12 h-12 rounded-xl bg-navy-900 border border-neon-blue/40 flex items-center justify-center group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(14,165,233,0.2)]"
+          >
+            <img
+              src="/uhc/assets/logo.png"
+              alt="NovaCircuit Logo"
+              class="w-8 h-8 object-contain"
+            />
+          </div>
+          <div class="flex flex-col">
+            <span
+              class="font-display font-black text-white tracking-[0.2em] leading-none text-xl"
+              >UHC</span
+            >
+            <span
+              class="font-display text-sm text-neon-blue tracking-[0.3em] uppercase mt-1"
+              >Championship</span
+            >
+          </div>
+        </a>
+
+        <!-- 桌面版選單 -->
+        <nav
+          class="hidden lg:flex items-center gap-8 text-sm font-bold tracking-widest text-slate-300"
+        >
+          <a
+            href="#current-event"
+            class="hover:text-white transition-colors text-neon-cyan flex items-center gap-2"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"
+            ></span>
+            當前賽季
+          </a>
+          <a href="#hall-of-fame" class="hover:text-white transition-colors"
+            >榮耀殿堂</a
+          >
+          <a href="#archive" class="hover:text-white transition-colors"
+            >賽事檔案庫</a
+          >
+          <a href="#records" class="hover:text-white transition-colors"
+            >傳奇紀錄</a
+          >
+        </nav>
+
+        <div class="hidden lg:flex items-center">
+          <!-- 目錄結構預留：/events/2027-winter.html -->
+          <a
+            href="events/2027-winter.html"
+            class="px-6 py-3 bg-white/5 backdrop-blur-md border border-white/20 text-white font-bold rounded-lg hover:bg-white/10 hover:border-neon-cyan transition-all tracking-widest text-sm flex items-center gap-2"
+          >
+            <i data-lucide="play" class="w-4 h-4"></i> 進入 2027 賽區
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="lg:hidden text-white p-2">
+          <i data-lucide="menu" class="w-7 h-7"></i>
+        </button>
+      </div>
+
+      <!-- 手機版選單 -->
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden absolute top-full left-0 w-full glass-panel border-x-0 border-t-0 rounded-none p-6 flex flex-col gap-6 text-slate-200 tracking-widest font-bold text-base"
+      >
+        <a href="#current-event" class="mobile-link text-neon-cyan">當前賽季</a>
+        <a href="#hall-of-fame" class="mobile-link hover:text-white"
+          >榮耀殿堂</a
+        >
+        <a href="#archive" class="mobile-link hover:text-white">賽事檔案庫</a>
+        <a href="#records" class="mobile-link hover:text-white">傳奇紀錄</a>
+        <a
+          href="events/2027-winter.html"
+          class="px-6 py-4 bg-neon-blue text-white text-center rounded-lg mt-2"
+          >進入 2027 賽事</a
+        >
+      </div>
+    </header>
+
+    <main>
+      <section
+        id="hero"
+        class="relative min-h-screen flex flex-col justify-center items-center px-6 text-center"
+      >
+        <div
+          class="reveal active max-w-5xl mx-auto flex flex-col items-center z-10 w-full pt-10"
+        >
+          <h1
+            class="text-6xl md:text-[5.5rem] lg:text-[7rem] font-black tracking-tighter mb-6 leading-none font-display uppercase drop-shadow-[0_0_40px_rgba(34,211,238,0.15)] flex flex-col md:block"
+          >
+            <span class="text-white">NOVA CIRCUIT</span>
+            <span class="text-gradient">UHC</span>
+            <span class="title-outline"> CHAMPIONSHIP </span>
+          </h1>
+
+          <i
+            class="text-lg md:text-2xl text-slate-300 font-medium tracking-[0.2em] mb-12 max-w-2xl"
+          >
+            挑戰極限，鑄就傳奇。<br />
+            在極端環境中生存，在絕境之中競爭。
+          </i>
+
+          <div class="flex flex-col sm:flex-row gap-5">
+            <a
+              href="#current-event"
+              class="px-10 py-4 btn-neon rounded-xl font-bold tracking-widest text-base shadow-lg flex items-center justify-center gap-2"
+            >
+              了解目前賽季 <i data-lucide="arrow-down" class="w-5 h-5"></i>
+            </a>
+            <a
+              href="#archive"
+              class="px-10 py-4 bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:border-neon-cyan rounded-xl transition-all font-bold tracking-widest text-base backdrop-blur-sm text-center"
+            >
+              探索賽事檔案
+            </a>
+          </div>
+        </div>
+      </section>
+      <section id="current-event" class="py-32 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+          <div
+            class="reveal flex flex-col md:flex-row justify-between items-end mb-12 gap-4"
+          >
+            <div>
+              <span
+                class="text-neon-cyan font-mono text-sm tracking-widest uppercase mb-2 block"
+                >Current Season</span
+              >
+              <h2
+                class="text-4xl md:text-5xl font-black text-white font-display tracking-widest uppercase"
+              >
+                2027 冬季 <span class="text-gradient">UHC</span>
+              </h2>
+            </div>
+          </div>
+
+          <div
+            class="reveal w-full glass-panel p-3 flex flex-col lg:flex-row items-stretch rounded-3xl group relative overflow-hidden"
+          >
+            <!-- 背景光暈 -->
+            <div
+              class="absolute -right-32 -top-32 w-96 h-96 bg-neon-blue/20 rounded-full blur-[100px] pointer-events-none"
+            ></div>
+
+            <!-- 賽事主視覺圖 -->
+            <div
+              class="w-full lg:w-1/2 aspect-video lg:aspect-auto rounded-2xl overflow-hidden relative"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1518241416801-7299a9979d50?q=80&w=1200&auto=format&fit=crop"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                alt="2027 Winter UHC"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#01050a] via-transparent to-transparent opacity-90"
+              ></div>
+
+              <div class="absolute bottom-6 left-6">
+                <div
+                  class="flex items-center gap-2 px-3 py-1.5 bg-red-500/20 border border-red-500/50 rounded-lg backdrop-blur-md mb-3 w-fit"
+                >
+                  <span class="relative flex h-2.5 w-2.5">
+                    <span
+                      class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"
+                    ></span>
+                    <span
+                      class="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500"
+                    ></span>
+                  </span>
+                  <span
+                    class="text-xs font-bold tracking-widest text-white uppercase"
+                    >報名早鳥開放中！</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 賽事資訊 -->
+            <div
+              class="w-full lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center relative z-10"
+            >
+              <h3 class="text-3xl font-bold text-white mb-4 tracking-widest">
+                2027寒冬極地UHC錦標賽
+              </h3>
+              <p
+                class="text-slate-300 text-base leading-relaxed mb-8 tracking-wide text-justify"
+              >
+                本賽事由NovaCircuit團隊光風濟月推出
+                ，首次引入「動態視覺」與「極地天氣」等機制的旗艦級賽事。玩家將在嚴寒極地中面對失溫危機與殘酷的淘汰機制。唯有適應環境的強者，才能在冰川之上加冕。與我們挑戰歷屆衛冕（兼主辦）紀錄，迎接全新的王者誕生。！
+              </p>
+
+              <div class="grid grid-cols-2 gap-6 mb-10">
+                <div>
+                  <p
+                    class="text-neon-cyan text-sm font-bold tracking-widest mb-1"
+                  >
+                    賽事類型
+                  </p>
+                  <p class="text-white font-mono text-base tracking-wider">
+                    1～4人小隊競技
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-neon-cyan text-sm font-bold tracking-widest mb-1"
+                  >
+                    引擎版本
+                  </p>
+                  <p class="text-white font-mono text-base tracking-wider">
+                    Skyline 3.0<br />極凜動作1.0
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-neon-cyan text-sm font-bold tracking-widest mb-1"
+                  >
+                    冠軍隊伍獎勵
+                  </p>
+                  <p class="text-white font-mono text-base tracking-wider">
+                    全隊限定2027冬季紀念動態桌布<br />
+                    （依官方可提供內容客製）<br />
+                    NovaCircuit 手寫紀念卡片<br />
+                    總決賽參加資格<br />
+                    隊伍名稱、名言與隊員資訊永久收錄於榮耀殿堂<br />
+                    （直到NovaCircuit停止服務）
+                  </p>
+                </div>
+                <div>
+                  <p
+                    class="text-neon-cyan text-sm font-bold tracking-widest mb-1"
+                  >
+                    參加獎
+                  </p>
+                  <p class="text-white font-mono text-base tracking-wider">
+                    隨機一張2027冬季限定Bloxd.io桌布<br />每隊一張Bloxd.io團隊專屬紀念桌布
+                  </p>
+                </div>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+                <a
+                  href="./2027-winter"
+                  class="flex-1 text-center py-4 bg-white text-navy-950 font-bold rounded-xl shadow-lg hover:bg-slate-200 transition-colors tracking-widest text-sm"
+                >
+                  早鳥立即報名/了解詳情
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        id="hall-of-fame"
+        class="py-32 px-6 relative z-10 bg-navy-900/40 border-y border-white/5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="reveal text-center mb-20">
+            <span
+              class="text-neon-gold font-mono text-sm tracking-widest uppercase mb-2 block text-accent-gold"
+              >Hall of Champions</span
+            >
+            <h2
+              class="text-4xl md:text-5xl font-black text-white font-display tracking-widest uppercase"
+            >
+              榮耀 <span class="text-gradient-gold">殿堂</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div
+              class="reveal glass-panel p-8 text-center flex flex-col items-center justify-center border-dashed border-2 border-slate-700 relative group"
+            >
+              <div
+                class="w-24 h-24 rounded-full bg-navy-950 flex items-center justify-center mb-6"
+              >
+                <i data-lucide="trophy" class="w-10 h-10 text-slate-600"></i>
+              </div>
+              <h3
+                class="text-2xl font-bold text-slate-300 mb-2 tracking-widest"
+              >
+                2027 冬季UHC
+              </h3>
+              <div
+                class="text-white font-black text-xl tracking-widest bg-white/5 px-6 py-2 rounded-xl blur-[2px] group-hover:blur-0 transition-all"
+              >
+                拭目以待！
+              </div>
+            </div>
+            <div
+              class="reveal glass-panel p-1 rounded-2xl relative"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  rgba(251, 191, 36, 0.3) 0%,
+                  rgba(3, 11, 20, 0.5) 100%
+                );
+              "
+            >
+              <div
+                class="bg-navy-950/90 backdrop-blur-xl rounded-xl p-8 h-full flex flex-col items-center text-center"
+              >
+                <div class="absolute top-4 right-4">
+                  <i data-lucide="award" class="text-neon-gold w-6 h-6"></i>
+                </div>
+                <div
+                  class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500/20 to-transparent flex items-center justify-center mb-6 border border-yellow-500/30"
+                >
+                  <i
+                    data-lucide="medal"
+                    class="w-12 h-12 text-yellow-500 drop-shadow-[0_0_15px_rgba(251,191,36,0.5)]"
+                  ></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2 tracking-widest">
+                  2026 夏季uhc
+                </h3>
+                <div
+                  class="text-yellow-500 font-black text-2xl tracking-widest mb-6 mt-2"
+                >
+                  冠軍 PPbAg_071
+                </div>
+                <div class="border-t border-white/10 w-full pt-4">
+                  <p class="text-slate-400 text-sm tracking-wider font-mono">
+                    開局背刺…下次請小心這東西。嗯…竟然主辦和冠軍同一人？我自己辦！
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="reveal glass-panel p-8 text-center flex flex-col items-center"
+            >
+              <div
+                class="w-24 h-24 rounded-full bg-navy-800/50 flex items-center justify-center mb-6 border border-slate-600"
+              >
+                <i data-lucide="medal" class="w-10 h-10 text-slate-300"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-2 tracking-widest">
+                2026 冬季UHC
+              </h3>
+              <div
+                class="text-slate-200 font-black text-2xl tracking-widest mb-6 mt-2"
+              >
+                冠軍 PPbAg_071
+              </div>
+              <div class="border-t border-white/10 w-full pt-4">
+                <p class="text-slate-400 text-sm tracking-wider font-mono">
+                  鐵與血….與奸詐？
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="archive" class="py-32 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+          <div
+            class="reveal flex flex-col md:flex-row justify-between items-end mb-12 gap-4"
+          >
+            <div>
+              <h2
+                class="text-4xl md:text-5xl font-bold text-white mb-2 font-display tracking-widest uppercase"
+              >
+                賽事 <span class="text-gradient">資料庫</span>
+              </h2>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 2027 Winter -->
+            <a
+              href="./2027-winter"
+              class="reveal block glass-panel p-8 group hover:-translate-y-2 transition-all cursor-pointer border-neon-blue/40"
+            >
+              <div class="flex justify-between items-start mb-6">
+                <span
+                  class="px-3 py-1 bg-neon-blue/20 text-neon-cyan text-xs font-bold uppercase tracking-widest rounded-md border border-neon-cyan/30"
+                  >Active</span
+                >
+                <i
+                  data-lucide="external-link"
+                  class="w-5 h-5 text-neon-cyan group-hover:text-white transition-colors"
+                ></i>
+              </div>
+              <h4
+                class="text-3xl font-black text-white mb-2 tracking-wider font-display"
+              >
+                2027 Winter
+              </h4>
+              <p
+                class="text-slate-300 text-base font-bold tracking-widest mb-6"
+              >
+                2027冬季極地生存錦標賽
+              </p>
+              <div
+                class="h-1 w-12 bg-neon-cyan rounded-full group-hover:w-full transition-all duration-500"
+              ></div>
+            </a>
+            <div class="reveal glass-panel p-8 opacity-60">
+              <div class="flex justify-between items-start mb-6">
+                <span
+                  class="px-3 py-1 bg-white/5 text-slate-400 text-xs font-bold uppercase tracking-widest rounded-md border border-white/10"
+                  >Planned</span
+                >
+              </div>
+              <h4
+                class="text-3xl font-black text-white mb-2 tracking-wider font-display"
+              >
+                2027 Summer
+              </h4>
+              <p
+                class="text-slate-400 text-base font-bold tracking-widest mb-6"
+              >
+                2027夏季荒野挑戰賽
+              </p>
+              <div class="h-1 w-12 bg-slate-700 rounded-full"></div>
+            </div>
+            <div class="reveal glass-panel p-8 opacity-60">
+              <div class="flex justify-between items-start mb-6">
+                <span
+                  class="px-3 py-1 bg-white/5 text-slate-400 text-xs font-bold uppercase tracking-widest rounded-md border border-white/10"
+                  >計劃中….</span
+                >
+              </div>
+              <h4
+                class="text-3xl font-black text-white mb-2 tracking-wider font-display"
+              >
+                2028 Winter
+              </h4>
+              <p
+                class="text-slate-400 text-base font-bold tracking-widest mb-6"
+              >
+                溫帶求生錦標賽
+              </p>
+              <div class="h-1 w-12 bg-slate-700 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="records"
+        class="py-32 px-6 relative z-10 bg-navy-900/40 border-t border-white/5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <div class="reveal text-center mb-16">
+            <h2
+              class="text-4xl md:text-5xl font-bold text-white mb-4 font-display tracking-widest uppercase"
+            >
+              人物 <span class="text-gradient">傳奇紀錄</span>
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Record 1 -->
+            <div class="reveal flex flex-col items-center text-center group">
+              <div
+                class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-neon-cyan transition-all"
+              >
+                <i data-lucide="zap" class="w-7 h-7 text-neon-cyan"></i>
+              </div>
+              <div
+                class="text-4xl font-black text-white font-display tracking-wider mb-3"
+              >
+                24小時
+              </div>
+              <h4
+                class="text-slate-200 font-bold tracking-widest text-base mb-2"
+              >
+                第一屆主辦單位PPbAg_071的準備時間
+              </h4>
+              <p class="text-slate-500 text-sm tracking-wider font-mono">
+                最「速」設計師——PPbAg_071
+              </p>
+            </div>
+
+            <!-- Record 2 -->
+            <div
+              class="reveal flex flex-col items-center text-center group"
+              style="transition-delay: 100ms"
+            >
+              <div
+                class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-red-400 transition-all"
+              >
+                <i data-lucide="crosshair" class="w-7 h-7 text-red-400"></i>
+              </div>
+              <div
+                class="text-4xl font-black text-white font-display tracking-wider mb-3"
+              >
+                2 年
+              </div>
+              <h4
+                class="text-slate-200 font-bold tracking-widest text-base mb-2"
+              >
+                連續冠軍紀錄
+              </h4>
+              <p class="text-slate-500 text-sm tracking-wider font-mono">
+                PPbAg_071
+              </p>
+            </div>
+
+            <!-- Record 3 -->
+            <div
+              class="reveal flex flex-col items-center text-center group"
+              style="transition-delay: 200ms"
+            >
+              <div
+                class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-yellow-400 transition-all"
+              >
+                <i data-lucide="file-text" class="w-7 h-7 text-yellow-400"></i>
+              </div>
+              <div
+                class="text-4xl font-black text-white font-display tracking-wider mb-3"
+              >
+                15K以上
+              </div>
+              <h4
+                class="text-slate-200 font-bold tracking-widest text-base mb-2"
+              >
+                最長程式紀錄
+              </h4>
+              <p class="text-slate-500 text-sm tracking-wider font-mono">
+                第二屆經過我與PPbAg_071,Fool_YT合作開發超過15000行程式
+              </p>
+            </div>
+
+            <!-- Record 4 -->
+            <div
+              class="reveal flex flex-col items-center text-center group"
+              style="transition-delay: 300ms"
+            >
+              <div
+                class="w-16 h-16 rounded-2xl glass-panel flex items-center justify-center mb-6 group-hover:scale-110 group-hover:border-purple-400 transition-all"
+              >
+                <i data-lucide="drill" class="w-7 h-7 text-purple-400"></i>
+              </div>
+              <div
+                class="text-4xl font-black text-white font-display tracking-wider mb-3"
+              >
+                2 Month
+              </div>
+              <h4
+                class="text-slate-200 font-bold tracking-widest text-base mb-2"
+              >
+                最久程式預備
+              </h4>
+              <p class="text-slate-500 text-sm tracking-wider font-mono">
+                PPbAg_071與我
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer
+      class="bg-navy-950 border-t border-white/10 pt-20 pb-10 relative z-20"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div class="col-span-1 md:col-span-2">
+            <a href="#" class="flex items-center gap-3 mb-6">
+              <img
+                src="/uhc/assets/logo.png"
+                alt="NovaCircuit Logo"
+                class="w-8 h-8 object-contain"
+              />
+              <span
+                class="font-display font-black text-white tracking-[0.2em] text-2xl"
+                >NovaCircuit <span class="text-neon-cyan">光風濟月</span></span
+              >
+            </a>
+            <p
+              class="text-slate-400 text-base leading-relaxed max-w-md tracking-wider"
+            >
+              致力於打造最具挑戰性、公平性的原創極限生存賽事品牌。準備好迎接嚴冬的考驗了嗎？
+            </p>
+          </div>
+          <div>
+            <h4
+              class="text-white font-bold tracking-widest uppercase mb-6 text-sm"
+            >
+              團隊導覽
+            </h4>
+            <ul class="space-y-4 text-base tracking-wider text-slate-400">
+              <li>
+                <a
+                  href="https://fuguangji.github.io"
+                  class="hover:text-neon-cyan transition-colors"
+                  >關於光風濟月</a
+                >
+              </li>
+              <li>
+                <a
+                  href="../rules"
+                  class="hover:text-neon-cyan transition-colors"
+                  >通用賽事規章</a
+                >
+              </li>
+              <li>
+                <a href="" class="hover:text-neon-cyan transition-colors"
+                  >選手註冊系統</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4
+              class="text-white font-bold tracking-widest uppercase mb-6 text-sm"
+            >
+              聯絡我們/提供意見
+            </h4>
+            <div class="flex gap-4">
+              <a
+                href="mailto:fuguangji19@gmail.com"
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-[#5865F2] hover:text-white hover:border-transparent transition-all"
+              >
+                <i data-lucide="mail" class="w-6 h-6"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-mono tracking-widest text-slate-500"
+        >
+          <p>&copy; NovaCircuit UHC Championship. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- =========================================
+         JavaScript: 模組化邏輯與進階 Three.js 粒子
+         ========================================= -->
+    <script>
+      // 1. 初始化 Icons
+      function initIcons() {
+        lucide.createIcons();
+      }
+
+      // 2. 導覽列滾動透明度變化
+      function initNavbar() {
+        const navbar = document.getElementById("navbar");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            navbar.classList.remove(
+              "bg-transparent",
+              "border-transparent",
+              "py-5",
+            );
+            navbar.classList.add(
+              "bg-[#030b14]/80",
+              "backdrop-blur-xl",
+              "shadow-lg",
+              "border-white/10",
+              "py-3",
+            );
+          } else {
+            navbar.classList.add(
+              "bg-transparent",
+              "border-transparent",
+              "py-5",
+            );
+            navbar.classList.remove(
+              "bg-[#030b14]/80",
+              "backdrop-blur-xl",
+              "shadow-lg",
+              "border-white/10",
+              "py-3",
+            );
+          }
+        });
+
+        // 手機版選單切換
+        const mobileBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileBtn.addEventListener("click", () =>
+          mobileMenu.classList.toggle("hidden"),
+        );
+        document.querySelectorAll(".mobile-link").forEach((link) => {
+          link.addEventListener("click", () =>
+            mobileMenu.classList.add("hidden"),
+          );
+        });
+      }
+
+      // 3. 滾動揭示動畫 (Intersection Observer)
+      function initScrollReveal() {
+        const revealElements = document.querySelectorAll(".reveal");
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+        );
+
+        revealElements.forEach((el) => revealObserver.observe(el));
+      }
+
+      // 4. 進階 Three.js 發光雪花背景 (客製化 Texture)
+      function initThreeJS() {
+        if (typeof THREE === "undefined") return;
+
+        const container = document.getElementById("webgl-container");
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x01050a, 0.001); // 迷霧效果融入背景
+
+        const camera = new THREE.PerspectiveCamera(
+          60,
+          window.innerWidth / window.innerHeight,
+          1,
+          2000,
+        );
+        camera.position.z = 800;
+
+        const renderer = new THREE.WebGLRenderer({
+          alpha: true,
+          antialias: true,
+        });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // 產生發光雪花材質 (Canvas API 繪製漸層)
+        function createParticleTexture() {
+          const canvas = document.createElement("canvas");
+          canvas.width = 64;
+          canvas.height = 64;
+          const ctx = canvas.getContext("2d");
+          const gradient = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
+          gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
+          gradient.addColorStop(0.2, "rgba(34, 211, 238, 0.8)");
+          gradient.addColorStop(0.5, "rgba(14, 165, 233, 0.2)");
+          gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, 64, 64);
+          return new THREE.CanvasTexture(canvas);
+        }
+
+        const particleCount = window.innerWidth < 768 ? 400 : 900;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = [];
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+          positions[i] = (Math.random() - 0.5) * 2000;
+          positions[i + 1] = (Math.random() - 0.5) * 2000;
+          positions[i + 2] = (Math.random() - 0.5) * 3000;
+
+          velocities.push({
+            x: (Math.random() - 0.5) * 0.3,
+            y: (Math.random() - 0.5) * 0.3 - 0.5, // 緩慢飄落
+            z: (Math.random() - 0.5) * 0.3,
+          });
+        }
+
+        geometry.setAttribute(
+          "position",
+          new THREE.BufferAttribute(positions, 3),
+        );
+
+        // 材質設定 (Additive Blending 發光效果)
+        const material = new THREE.PointsMaterial({
+          size: window.innerWidth < 768 ? 12 : 16,
+          map: createParticleTexture(),
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          transparent: true,
+          opacity: 0.8,
+          color: 0xffffff,
+        });
+
+        const particles = new THREE.Points(geometry, material);
+        scene.add(particles);
+
+        // 滑鼠互動視角微調
+        let targetX = 0,
+          targetY = 0;
+        document.addEventListener("mousemove", (event) => {
+          targetX = (event.clientX - window.innerWidth / 2) * 0.1;
+          targetY = (event.clientY - window.innerHeight / 2) * 0.1;
+        });
+
+        // 動畫迴圈
+        function animate() {
+          requestAnimationFrame(animate);
+
+          const posArray = geometry.attributes.position.array;
+
+          for (let i = 0; i < particleCount; i++) {
+            const idx = i * 3;
+            const v = velocities[i];
+
+            posArray[idx] += v.x;
+            posArray[idx + 1] += v.y;
+            posArray[idx + 2] += v.z;
+
+            if (posArray[idx + 1] < -1000) posArray[idx + 1] = 1000;
+            if (posArray[idx] > 1000) posArray[idx] = -1000;
+            if (posArray[idx] < -1000) posArray[idx] = 1000;
+          }
+          geometry.attributes.position.needsUpdate = true;
+
+          // 攝影機緩慢平移，增加空間深度感
+          camera.position.x += (targetX - camera.position.x) * 0.02;
+          camera.position.y += (-targetY - camera.position.y) * 0.02;
+          camera.lookAt(scene.position);
+
+          particles.rotation.y += 0.0003; // 整體緩慢旋轉
+
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        // 響應式
+        window.addEventListener("resize", () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+      }
+
+      // 啟動所有模組
+      function initApp() {
+        initIcons();
+        initNavbar();
+        initScrollReveal();
+        initThreeJS();
+      }
+
+      window.addEventListener("load", initApp);
+    </script>
+  </body>
+</html>
