@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027 冬季 UHC 錦標賽 | 賽事規則</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'], display: ['"Syncopate"', 'sans-serif'] }, colors: { polar: { 50: '#f0f7ff', 100: '#e0effe', 200: '#bae0fd', 300: '#7cc8fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#0369a1', 900: '#0c4a6e', 950: '#082f49' } } } } }
+    </script>
+    <style>
+        :root { --light-glass: rgba(255, 255, 255, 0.75); --light-border: rgba(255, 255, 255, 0.5); --light-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.15); --blur-effect: blur(16px); }
+        body { background-color: #f0f7ff; color: #0c4a6e; font-family: 'Noto Sans TC', sans-serif; }
+        .bg-overlay { position: fixed; inset: 0; z-index: -2; background: linear-gradient(to bottom, rgba(240, 247, 255, 0.5) 0%, rgba(224, 239, 254, 0.9) 100%); backdrop-filter: blur(8px); }
+        .glass-card { background: var(--light-glass); backdrop-filter: var(--blur-effect); border: 1px solid var(--light-border); box-shadow: var(--light-shadow); border-radius: 24px; }
+        .text-gradient-polar { background: linear-gradient(135deg, #082f49 0%, #0284c7 60%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* 手風琴動態 */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; opacity: 0; }
+        .accordion-item.active .accordion-content { opacity: 1; }
+        .accordion-item.active .accordion-icon { transform: rotate(180deg); transition: transform 0.3s; }
+        .accordion-icon { transition: transform 0.3s; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-overlay"></div>
+
+    <header id="main-header" class="fixed w-full z-50 top-0 transition-all duration-500 py-3 px-6">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center glass-card shadow-sm border-white/50">
+            <a href="index.html" class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg">
+                <i data-lucide="snowflake" class="text-polar-500"></i><span class="font-display tracking-wider text-gradient-polar">WINTER UHC</span>
+            </a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900">
+                <a href="index.html" class="hover:text-polar-500 transition-colors">首頁</a>
+                <a href="encyclopedia.html" class="hover:text-polar-500 transition-colors">系統百科</a>
+                <a href="database.html" class="hover:text-polar-500 transition-colors">礦物裝備</a>
+                <a href="rules.html" class="text-polar-500 font-bold">賽事規則</a>
+                <a href="progress.html" class="hover:text-polar-500 transition-colors">開發進度</a>
+                <a href="register.html" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all">立即報名</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-32 pb-24 px-6 max-w-4xl mx-auto min-h-screen">
+        <div class="text-center mb-16">
+            <span class="text-polar-600 font-mono text-sm uppercase tracking-widest">Rules</span>
+            <h1 class="text-3xl md:text-4xl font-bold text-polar-950 mt-2 mb-3 tracking-wider">賽事規章</h1>
+        </div>
+
+        <div class="space-y-4">
+            <div class="accordion-item glass-card overflow-hidden">
+                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <span class="font-bold text-polar-950 text-base md:text-lg">1. 嚴禁任何形式之外掛與巨集</span>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
+                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">禁止使用任何加速、透視、自動點擊或修改客戶端封包之行為。違規將永久禁賽。</div>
+                </div>
+            </div>
+            
+            <div class="accordion-item glass-card overflow-hidden">
+                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <span class="font-bold text-polar-950 text-base md:text-lg">2. 禁止跨隊惡意組隊 (Teaming)</span>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
+                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">本賽事為獨立小隊生死鬥。嚴禁與其他隊伍私下協議停戰或交換物資。</div>
+                </div>
+            </div>
+
+            <div class="accordion-item glass-card overflow-hidden">
+                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <span class="font-bold text-polar-950 text-base md:text-lg">3. 戰鬥登出處理</span>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
+                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">遭受攻擊後的 30 秒內強行關閉遊戲視為戰鬥登出，角色將直接判定死亡。</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3 font-bold tracking-widest"><i data-lucide="snowflake" class="text-polar-500"></i><span class="font-display">WINTER UHC 2027</span></div>
+            <p class="text-sm text-polar-600">&copy; 2027 Winter UHC Championship. 非官方社群賽事。</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function toggleAccordion(btn) {
+            const item = btn.parentElement;
+            const content = item.querySelector('.accordion-content');
+            
+            document.querySelectorAll('.accordion-item.active').forEach(activeItem => {
+                if(activeItem !== item) {
+                    activeItem.classList.remove('active');
+                    activeItem.querySelector('.accordion-content').style.maxHeight = null;
+                }
+            });
+
+            item.classList.toggle('active');
+            if (item.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + "px";
+            } else {
+                content.style.maxHeight = null;
+            }
+        }
+    </script>
+</body>
+</html>
