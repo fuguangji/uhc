@@ -70,15 +70,16 @@
                 <a href="./register" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all">立即報名</a>
             </nav>
 
-            <button id="mobile-menu-btn" class="md:hidden text-polar-950 p-1"><i data-lucide="menu"></i></button>
+            <button id="mobile-menu-btn" class="md:hidden text-polar-950 p-1" aria-label="開啟選單"><i data-lucide="menu"></i></button>
         </div>
 
         <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 glass-card p-6 flex flex-col gap-4 text-polar-900">
-            <a href="./encyclopedia" class="mobile-link text-base">系統百科</a>
-            <a href="./database" class="mobile-link text-base">礦物裝備庫</a>
-            <a href="./rules" class="mobile-link text-base">新手與規則</a>
-            <a href="./progress" class="mobile-link text-base">開發進度</a>
-            <a href="./register" class="mobile-link text-polar-500 font-bold text-base">立即報名</a>
+            <a href="./index.html" class="mobile-link text-base hover:text-polar-500 transition-colors">首頁</a>
+            <a href="./encyclopedia" class="mobile-link text-base hover:text-polar-500 transition-colors">系統百科</a>
+            <a href="./database" class="mobile-link text-base hover:text-polar-500 transition-colors">礦物裝備庫</a>
+            <a href="./rules" class="mobile-link text-polar-500 font-bold text-base">賽事規則</a>
+            <a href="./progress" class="mobile-link text-base hover:text-polar-500 transition-colors">開發進度</a>
+            <a href="./register" class="mobile-link text-base hover:text-polar-500 transition-colors">立即報名</a>
         </div>
     </header>
 
@@ -148,7 +149,17 @@
         // Mobile Menu
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+            document.addEventListener('click', (event) => {
+                if (!mobileMenu.contains(event.target) && !mobileBtn.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        }
 
         // Icons
         lucide.createIcons();
