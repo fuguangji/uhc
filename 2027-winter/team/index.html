@@ -256,7 +256,8 @@
 
             top: 0;
             bottom: 0;
-            left: 0;
+            right: 0;
+            left: auto;
 
             width: 48%;
 
@@ -362,7 +363,7 @@
         .visual-content {
             position: relative;
 
-            z-index: 5;
+            z-index: 8;
 
             height: 100%;
 
@@ -370,6 +371,8 @@
             flex-direction: column;
 
             justify-content: center;
+            align-items: flex-end;
+            text-align: right;
 
             padding: 60px;
 
@@ -413,6 +416,7 @@
             letter-spacing: 0.08em;
 
             line-height: 1.35;
+            text-align: right;
         }
 
         .event-subtitle {
@@ -429,7 +433,7 @@
             width: 60px;
             height: 2px;
 
-            margin: 28px 0;
+            margin: 28px 0 28px auto;
 
             background:
                 linear-gradient(
@@ -445,6 +449,8 @@
             line-height: 1.9;
 
             font-size: 14px;
+            text-align: right;
+            max-width: 24rem;
         }
 
         /* =========================================================
@@ -455,7 +461,8 @@
             position: absolute;
 
             top: 0;
-            right: 0;
+            left: 0;
+            right: auto;
 
             width: 58%;
             height: 100%;
@@ -468,7 +475,7 @@
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
 
-            border-left:
+            border-right:
                 1px solid rgba(255,255,255,0.7);
 
             display: flex;
@@ -980,86 +987,7 @@
 
 
             <!-- =================================================
-                 左側視覺區
-            ================================================= -->
-
-            <section class="visual-panel">
-
-                <div class="ice-line"></div>
-                <div class="ice-line"></div>
-                <div class="ice-line"></div>
-
-
-                <div class="visual-content">
-
-                    <div class="logo-frame mb-7">
-
-                        <img
-                            src="../../assets/logo.jpg"
-                            alt="Winter UHC Logo"
-                        >
-
-                    </div>
-
-
-                    <div class="event-subtitle mb-3">
-                        2027 Winter Championship
-                    </div>
-
-
-                    <h1 class="event-title">
-                        WINTER<br>
-                        UHC
-                    </h1>
-
-
-                    <div class="visual-divider"></div>
-
-
-                    <p class="visual-description max-w-sm">
-
-                        極寒、生存、競爭。
-
-                        <br>
-
-                        在沒有自然回血的極地世界中，
-                        你的每一個決定都可能成為最後一個決定。
-
-                        <br><br>
-
-                        現在，加入 2027 Winter UHC。
-
-                    </p>
-
-
-                    <div
-                        class="
-                            mt-8
-                            flex
-                            items-center
-                            gap-3
-                            text-xs
-                            tracking-widest
-                            text-white/60
-                        "
-                    >
-
-                        <i
-                            data-lucide="snowflake"
-                            class="w-4 h-4"
-                        ></i>
-
-                        SURVIVE THE COLD
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- =================================================
-                 右側表單
+                 左側表單
             ================================================= -->
 
             <section class="form-panel">
@@ -1092,7 +1020,7 @@
                                 tracking-wide
                             "
                         >
-                            參賽選手報名
+                            參賽隊伍註冊
                         </h2>
 
 
@@ -1104,7 +1032,7 @@
                                 leading-relaxed
                             "
                         >
-                            填寫以下資料後，我們會先確認隊伍與玩家狀態。
+                            填寫以下資料後，我們會先確認隊伍狀態。
                         </p>
 
                     </div>
@@ -1152,7 +1080,7 @@
                                         href="#"
                                         class="helper-link text-xs"
                                     >
-                                        創建隊伍
+                                        已經創建隊伍?
                                     </a>
 
                                 </div>
@@ -1161,7 +1089,7 @@
                                 <input
                                     type="text"
                                     id="team_name"
-                                    placeholder="選填"
+                                    placeholder="取一個響亮的名字!!"
                                 >
 
                             </div>
@@ -1172,14 +1100,14 @@
                             <div class="field">
 
                                 <label>
-                                    Email 信箱
+                                    隊長 Email 信箱
                                 </label>
 
                                 <input
                                     type="email"
                                     id="email"
                                     required
-                                    placeholder="example@mail.com"
+                                    placeholder="我們只會用來聯絡你，絕不外洩"
                                 >
 
                             </div>
@@ -1201,7 +1129,7 @@
                             >
 
                                 <label>
-                                    Bloxd ID
+                                    隊長 ID
                                 </label>
 
                                 <a
@@ -1314,6 +1242,88 @@
                 </div>
 
             </section>
+
+
+            <!-- =================================================
+                 右側視覺區
+            ================================================= -->
+
+            <section class="visual-panel">
+
+                <div class="ice-line"></div>
+                <div class="ice-line"></div>
+                <div class="ice-line"></div>
+
+
+                <div class="visual-content">
+
+                    <div class="logo-frame mb-7">
+
+                        <img
+                            src="../../assets/logo.jpg"
+                            alt="Winter UHC Logo"
+                        >
+
+                    </div>
+
+
+                    <div class="event-subtitle mb-3">
+                        2027 Winter Championship
+                    </div>
+
+
+                    <h1 class="event-title">
+                        WINTER<br>
+                        UHC
+                    </h1>
+
+
+                    <div class="visual-divider"></div>
+
+
+                    <p class="visual-description max-w-sm">
+
+                        極寒、生存、競爭。
+
+                        <br>
+
+                        在沒有自然回血的極地世界中，
+                        你的每一個決定都可能成為最後一個決定。
+
+                        <br><br>
+
+                        現在，加入 2027 Winter UHC。
+
+                    </p>
+
+
+                    <div
+                        class="
+                            mt-8
+                            flex
+                            items-center
+                            justify-end
+                            gap-3
+                            text-xs
+                            tracking-widest
+                            text-white/60
+                        "
+                    >
+
+                        <i
+                            data-lucide="snowflake"
+                            class="w-4 h-4"
+                        ></i>
+
+                        SURVIVE THE COLD
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
 
         </div>
 
