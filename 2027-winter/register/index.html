@@ -930,10 +930,14 @@
                     </a>
                   </div>
 
-                  <input type="text" id="team_name" placeholder="請向註冊隊伍的隊友索取" />
+                  <input
+                    type="text"
+                    id="team_name"
+                    placeholder="請向註冊隊伍的隊友索取"
+                  />
                 </div>
 
-                <!-- Email -->
+                <!-- Email 個人聯絡用途、封禁、獎勵通知及資料確認、單人隊伍聯絡-->
 
                 <div class="field">
                   <label> Email 信箱 </label>
@@ -942,6 +946,7 @@
                     type="email"
                     id="email"
                     required
+                    maxlength="70"
                     placeholder="example@mail.com"
                   />
                 </div>
@@ -965,8 +970,9 @@
 
                 <input
                   type="text"
-                  id="bloxd_id"
+                  id="player_id"
                   required
+                  maxlength="20"
                   placeholder="你的遊戲暱稱，請務必填寫正確"
                 />
               </div>
@@ -981,30 +987,27 @@
                   type="text"
                   id="player_name"
                   required
+                  maxlength="20"
                   placeholder="在伺服器內你的顯示名稱"
                 />
               </div>
 
-              <!-- Description -->
+              <!-- motto -->
 
               <div class="field">
                 <label> 座右銘 </label>
 
                 <textarea
-                  id="description"
+                  id="motto"
                   required
+                  maxlength="300"
                   placeholder="在你進場及死亡時播報..."
                 ></textarea>
               </div>
 
               <!-- Submit -->
 
-              <button
-                type="button"
-                id="btn-pre-submit"
-                onclick="handlePreSubmit()"
-                class="submit-button"
-              >
+              <button type="submit" id="btn-pre-submit" class="submit-button">
                 <span class="flex items-center justify-center gap-2">
                   <i data-lucide="send" class="w-4 h-4"></i>
 
@@ -1126,6 +1129,13 @@
 
         initMobileMenu();
         initScrollEffect();
+        const supabaseUrl = "https://your-supabase-url.supabase.co";
+        const supabaseKey = "your-supabase-key";
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        document.ATTRIBUTE_NODE.getElementById("registration-form").addEventListener("submit", (event) => {
+          event.preventDefault();
+          openModal();
+        });
       });
 
       /* =========================================================
@@ -1174,9 +1184,6 @@
           }
         });
       }
-
-      
-
     </script>
   </body>
 </html>
