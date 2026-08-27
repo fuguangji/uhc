@@ -923,14 +923,14 @@
 
                 <div class="field">
                   <div class="flex justify-between items-end gap-2 mb-2">
-                    <label> 隊伍名稱 </label>
+                    <label> 隊伍加入密碼(單人請留空) </label>
 
                     <a href="../team/" class="helper-link text-xs">
                       創建隊伍
                     </a>
                   </div>
 
-                  <input type="text" id="team_name" placeholder="選填" />
+                  <input type="text" id="team_name" placeholder="請向註冊隊伍的隊友索取" />
                 </div>
 
                 <!-- Email -->
@@ -967,19 +967,33 @@
                   type="text"
                   id="bloxd_id"
                   required
-                  placeholder="你的遊戲暱稱"
+                  placeholder="你的遊戲暱稱，請務必填寫正確"
+                />
+              </div>
+              <!-- Player name -->
+
+              <div class="field">
+                <div class="flex justify-between items-end mb-2">
+                  <label> 參賽顯示名稱 </label>
+                </div>
+
+                <input
+                  type="text"
+                  id="player_name"
+                  required
+                  placeholder="在伺服器內你的顯示名稱"
                 />
               </div>
 
               <!-- Description -->
 
               <div class="field">
-                <label> 死亡簡介 / 參賽宣言 </label>
+                <label> 座右銘 </label>
 
                 <textarea
                   id="description"
                   required
-                  placeholder="請簡述你的生存策略或遺言..."
+                  placeholder="在你進場及死亡時播報..."
                 ></textarea>
               </div>
 
@@ -1160,6 +1174,8 @@
           }
         });
       }
+
+      
 
     </script>
   </body>
