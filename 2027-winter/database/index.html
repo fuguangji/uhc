@@ -202,6 +202,299 @@
     </div>
 </div>
         </div>
+        <!-- 裝備資料庫 -->
+    <div id="tab-equipment" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+        <!-- ==================== 生存裝備 ==================== -->
+        <!-- 保暖錠 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">保暖錠</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">生存</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                為極地生存而製作的保暖物資，是玩家在低溫環境下維持體溫的重要消耗品。
+                具體使用效果將依天際線3.0體溫系統實際設定為準。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：銅 ×4 ＋ 鋁 ×4
+            </div>
+        </div>
+        <!-- 電池 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">電池</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">基礎</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                極地設備的基礎能源。電池可供應電磁爐、鍛造台等設備所需的能源，
+                是建立基地與維持設備運作不可或缺的資源。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鋁 ×1 ＋ 銅 ×1
+            </div>
+        </div>
+        <!-- 主動加熱系統 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">主動加熱系統</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">高階</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                可主動維持玩家體溫的特殊裝備。啟用後會持續提供體溫恢復，
+                每 5 秒恢復最大體溫的 5%，是對抗極寒環境的重要科技。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈦 ×1 ＋ 鋁 ×1 ＋ 鈾 ×1
+            </div>
+        </div>
+        <!-- 金蘋果 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">金蘋果</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">稀有</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                在無自然恢復規則下，金蘋果是玩家重要的生命恢復手段之一。
+                相較於一般食物，它不只是補充生存資源，更是戰鬥後維持戰力的重要物資。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：金 ×2 ＋ 鋁 ×1 ＋ 蘋果 ×1 → 3 個
+            </div>
+        </div>
+        <!-- ==================== 戰鬥裝備 ==================== -->
+        <!-- 裝甲錠 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">裝甲錠</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">高階</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                用於強化裝備的複合金屬材料。
+                需要多種高價值金屬才能製作，是鍛造高階裝備的重要材料之一。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：金 ×4 ＋ 鈦 ×1 ＋ 鋁 ×3
+            </div>
+        </div>
+        <!-- 劇毒錠 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">劇毒錠</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">特殊</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                以高純度鈦與銅製成的特殊戰鬥材料。
+                其具體作用與適用裝備目前尚未於技術文件中公開。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈦 ×2 ＋ 銅 ×5
+            </div>
+        </div>
+        <!-- 破甲錠 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">破甲錠</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">戰鬥</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                專門用於突破防禦的特殊戰鬥物資。
+                使用後可無視裝甲減免，額外造成 3 點傷害。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈦 ×10 ＋ 煤 ×10 ＋ 鋁 ×7
+            </div>
+        </div>
+        <!-- 死灰復燃錠 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">死灰復燃錠</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">傳說</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                極其珍貴的特殊生存道具。
+                可使玩家無視一次死亡判定，是永久死亡規則下極為重要的保命手段。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈾 ×5 ＋ 鈦 ×5 ＋ 金 ×2 ＋ 煤炭 ×5
+            </div>
+        </div>
+        <!-- ==================== 戰術裝備 ==================== -->
+        <!-- 破片手榴彈 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">破片手榴彈</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">戰術</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                以高能量金屬材料製作的爆炸性戰術裝備。
+                適合用於戰鬥與突破防禦，但具體傷害與作用範圍尚未於技術文件中定義。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈾 ×2 ＋ 鋁 ×2
+            </div>
+        </div>
+        <!-- 遠程遙控炸藥 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">遠程遙控炸藥</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">戰術</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                可遠程控制的特殊爆炸裝置。
+                需要鈾、銅、鋁與金等多種金屬製作，具體爆炸效果尚待正式設定。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈾 ×2 ＋ 銅 ×5 ＋ 鋁 ×3 ＋ 金 ×4
+            </div>
+        </div>
+        <!-- 核污染炸彈 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">核污染炸彈</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">極危險</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                高度危險的特殊戰術裝備。
+                爆炸後會影響附近 20 格內的所有玩家，使其獲得劇毒效果並使體溫上升至最大值。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈾 ×5
+            </div>
+        </div>
+        <!-- 煙霧彈 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">煙霧彈</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">戰術</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                用於製造煙霧與干擾戰場視線的戰術裝備。
+                具體煙霧持續時間與作用範圍目前尚未於技術文件中定義。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鋁 ×5 ＋ 銅 ×5 ＋ 鈾 ×2
+            </div>
+        </div>
+        <!-- 原子彈頭 -->
+        <div class="glass-card p-8 border-polar-300/70">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">原子彈頭</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">究極兵器</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                戰場上的終極級特殊武器。可指定打擊目標，飛行時間約 2 秒，
+                影響附近 500 格內的玩家。發動後將公開發動者的姓名與座標，
+                並使發動者獲得 100 秒寒冷效果。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：鈾 ×10 ＋ 金 ×10 ＋ 鋁 ×10 ＋ 銅 ×10 ＋ 煤炭 ×20
+            </div>
+        </div>
+        <!-- ==================== 特殊物資 ==================== -->
+        <!-- 信號彈 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">信號彈</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">特殊</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                用來取代原版煙火的特殊道具。
+                使用後會在玩家所在位置發射一顆煙火，可作為訊號與位置標記工具。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：碳 ×1 ＋ 銅 ×1
+            </div>
+        </div>
+        <!-- 亡魂 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">亡魂</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">特殊資源</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                擊殺玩家後可以取得的特殊資源。
+                亡魂本身不是單純的金屬材料，而是一種可以轉化為其他金屬的戰利品。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                用途：可合成任一種金屬 ×2
+            </div>
+        </div>
+        <!-- ==================== 保暖與基地設施 ==================== -->
+        <!-- 營火 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">營火</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">保暖設施</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                消耗大量煤炭或原木提供熱量的基礎保暖設施。
+                必須站在營火上方才能獲得體溫提升，但持續停留過久可能造成燙傷。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                燃料：大量煤炭／原木
+            </div>
+        </div>
+        <!-- 電磁爐 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">電磁爐</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">基地設施</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                使用電池運作的固定式保暖設施。
+                放置後會使所在區塊具有保暖能力，而且保暖效果不會隨距離衰減，
+                適合作為基地的核心設備。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                能源：少量電池
+            </div>
+        </div>
+        <!-- 電暖爐 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">電暖爐</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">特殊設備</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                由多種金屬製成的特殊設備。
+                技術文件目前僅公布其合成方式，實際功能與使用方式尚待後續擴充。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                合成：金 ×7 ＋ 鐵 ×7 ＋ 銅 ×7
+            </div>
+        </div>
+        <!-- 鍛造台 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">鍛造台</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">工作方塊</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                用於進行高階裝備與複合金屬加工的特殊工作方塊。
+                可以將複合金屬錠與裝備一同熔造，也能將多種金屬合成為複合金屬錠。
+                使用時需要消耗電池與大量體溫。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                功能：裝備熔造／複合金屬合成
+            </div>
+        </div>
+        <!-- 醫療台 -->
+        <div class="glass-card p-8">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="font-bold text-polar-950 text-xl">醫療台</h4>
+                <span class="px-3 py-1 rounded-full bg-polar-100 text-polar-700 text-sm font-mono font-bold border border-polar-200/50">醫療設施</span>
+            </div>
+            <p class="text-polar-700 text-base leading-relaxed mb-5">
+                基地醫療核心設備。必須放置於電磁爐附近 1 格內，
+                使用藥物進行充能；累積供電越高，藥品充能效率越高。
+                啟用後可利用儲存能量以 1:1 比例恢復生命值。
+            </p>
+            <div class="text-sm text-polar-600 font-mono font-medium">
+                條件：電磁爐附近 1 格內
+            </div>
+        </div>
+    </div>
+
     </main>
 
     <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
