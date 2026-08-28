@@ -911,12 +911,7 @@
 
               <!-- Submit -->
 
-              <button
-                type="button"
-                id="btn-pre-submit"
-                onclick="handlePreSubmit()"
-                class="submit-button"
-              >
+              <button type="submit" id="btn-pre-submit" class="submit-button">
                 <span class="flex items-center justify-center gap-2">
                   <i data-lucide="send" class="w-4 h-4"></i>
 
@@ -1148,6 +1143,7 @@
       function openModal() {
         const email = document.getElementById("email").value.trim();
         const teamName = document.getElementById("team_name").value.trim();
+        const modal = document.getElementById("confirm-modal");
         document.getElementById("modal-title").innerHTML = `
           <div class="text-xs tracking-widest text-polar-500 font-bold" >
             最終確認訊息
