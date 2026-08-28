@@ -1053,7 +1053,6 @@
           ></button>
 
           <button
-            onclick="submitToSupabase()"
             id="btn-final-submit"
             class="flex-1 py-3 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all font-bold flex items-center justify-center gap-2"
           >
@@ -1070,8 +1069,7 @@
       import * as handle from "../../assets/handle.js";
 
       const supabaseUrl = "https://pxjfnewychisfnxjmcob.supabase.co";
-      const supabaseKey =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
+      const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
       const supabaseClient = window.supabase.createClient(
         supabaseUrl,
         supabaseKey,
@@ -1091,6 +1089,10 @@
 
         initMobileMenu();
         initScrollEffect();
+      });
+
+      document.getElementById("btn-final-submit").addEventListener("click", (event) => {
+        submitToSupabase();
       });
 
       /* =========================================================
@@ -1141,27 +1143,20 @@
       }
 
       function openModal() {
-        const modal = document.getElementById("confirm-modal");
-        const joinCode = document.getElementById("join_code").value.trim();
         const email = document.getElementById("email").value.trim();
-        const playerId = document.getElementById("player_id").value.trim();
-        const playerName = document.getElementById("player_name").value.trim();
-        const motto = document.getElementById("motto").value.trim();
+        const teamName = document.getElementById("team_name").value.trim();
         document.getElementById("modal-title").innerHTML = `
           <div class="text-xs tracking-widest text-polar-500 font-bold" >
             最終確認訊息
           </div>
 
           <h2 class="text-xl font-black text-polar-950">
-            請確認資料(提交後若需改變資料請聯絡工作人員)
+            請確認資料(提交後若需改變資料須聯絡工作人員)
           </h2>
         `;
         document.getElementById("modal-details").innerHTML = `
-          <p><strong>隊伍加入密碼:</strong> ${joinCode || "無"}</p>
-          <p><strong>Email 信箱:</strong> ${email}</p>
-          <p><strong>Bloxd ID:</strong> ${playerId}</p>
-          <p><strong>參賽顯示名稱:</strong> ${playerName}</p>
-          <p><strong>座右銘:</strong> ${motto}</p>
+          <p><strong>隊伍名稱：</strong>${teamName}</p>
+          <p><strong>隊伍聯絡 Email：</strong>${email}</p>
         `;
         document.getElementById("cancel").textContent = "返回修改";
         modal.classList.add("modal-enter");
@@ -1176,11 +1171,8 @@
       }
 
       function submitToSupabase() {
-        const joinCode = document.getElementById("join_code").value.trim();
         const email = document.getElementById("email").value.trim();
-        const playerId = document.getElementById("player_id").value.trim();
-        const playerName = document.getElementById("player_name").value.trim();
-        const motto = document.getElementById("motto").value.trim();
+        const teamName = document.getElementById("team_name").value.trim();
 
         supabaseClient
           .from("players")

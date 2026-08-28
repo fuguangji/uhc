@@ -1103,7 +1103,6 @@
           </button>
 
           <button
-            onclick="submitToSupabase()"
             id="btn-final-submit"
             class="flex-1 py-3 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all font-bold flex items-center justify-center gap-2"
           >
@@ -1140,6 +1139,10 @@
 
         initMobileMenu();
         initScrollEffect();
+      });
+
+      document.getElementById("btn-final-submit").addEventListener("click", (event) => {
+        submitToSupabase();
       });
 
       /* =========================================================
@@ -1202,7 +1205,7 @@
           </div>
 
           <h2 class="text-xl font-black text-polar-950">
-            請確認資料(提交後若需改變資料請聯絡工作人員)
+            請確認資料(提交後若需改變資料須聯絡工作人員)
           </h2>
         `;
         document.getElementById("modal-details").innerHTML = `
