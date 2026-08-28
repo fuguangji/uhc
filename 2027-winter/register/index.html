@@ -1260,8 +1260,9 @@
               `;
               document.getElementById("modal-details").innerHTML = "<p>NovaCircuit感謝您報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您確認資料及材質包、詳細說明</p>";
               document.getElementById("registration-form").reset();
+              document.getElementById("cancel").textContent = "了解";
             }
-            document.getElementById("cancel").textContent = "了解";
+            
             document
               .getElementById("btn-final-submit")
               .classList.add("hidden");
