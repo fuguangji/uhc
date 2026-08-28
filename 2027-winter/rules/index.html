@@ -1,143 +1,1772 @@
 <!DOCTYPE html>
 <html lang="zh-TW" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2027 冬季 UHC 錦標賽 | 賽事規則</title>
+
+    <title>2027 冬季 UHC 錦標賽 | 賽事規章</title>
+
     <link rel="icon" type="image/png" href="../../assets/logo.jpg">
     <link rel="shortcut icon" href="../../assets/logo.jpg">
+
+    <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Syncopate:wght@700&display=swap"
+        rel="stylesheet"
+    >
 
     <script>
-        tailwind.config = { theme: { extend: { fontFamily: { sans: ['"Noto Sans TC"', 'sans-serif'], display: ['"Syncopate"', 'sans-serif'] }, colors: { polar: { 50: '#f0f7ff', 100: '#e0effe', 200: '#bae0fd', 300: '#7cc8fc', 400: '#38bdf8', 500: '#0ea5e9', 800: '#0369a1', 900: '#0c4a6e', 950: '#082f49' } } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                        display: ['"Syncopate"', 'sans-serif']
+                    },
+
+                    colors: {
+                        polar: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            300: '#7cc8fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#0369a1',
+                            900: '#0c4a6e',
+                            950: '#082f49'
+                        }
+                    }
+                }
+            }
+        };
     </script>
+
     <style>
-        :root { --light-glass: rgba(255, 255, 255, 0.75); --light-border: rgba(255, 255, 255, 0.5); --light-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.15); --blur-effect: blur(16px); }
-        body { background-color: #f0f7ff; color: #0c4a6e; font-family: 'Noto Sans TC', sans-serif; }
-        .bg-overlay { position: fixed; inset: 0; z-index: -2; background: linear-gradient(to bottom, rgba(240, 247, 255, 0.5) 0%, rgba(224, 239, 254, 0.9) 100%); backdrop-filter: blur(8px); }
-        .glass-card { background: var(--light-glass); backdrop-filter: var(--blur-effect); border: 1px solid var(--light-border); box-shadow: var(--light-shadow); border-radius: 24px; }
-        .text-gradient-polar { background: linear-gradient(135deg, #082f49 0%, #0284c7 60%, #0ea5e9 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* 手風琴動態 */
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, opacity 0.3s ease-out; opacity: 0; }
-        .accordion-item.active .accordion-content { opacity: 1; }
-        .accordion-item.active .accordion-icon { transform: rotate(180deg); transition: transform 0.3s; }
-        .accordion-icon { transition: transform 0.3s; }
+        :root {
+            --light-glass: rgba(255, 255, 255, 0.75);
+            --light-border: rgba(255, 255, 255, 0.55);
+            --light-shadow:
+                0 12px 40px -10px rgba(14, 165, 233, 0.15);
+            --blur-effect: blur(16px);
+        }
+
+        body {
+            background-color: #f0f7ff;
+            color: #0c4a6e;
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            background:
+                radial-gradient(
+                    circle at 50% 0%,
+                    rgba(124, 200, 252, 0.16),
+                    transparent 45%
+                ),
+                linear-gradient(
+                    to bottom,
+                    rgba(240, 247, 255, 0.5) 0%,
+                    rgba(224, 239, 254, 0.95) 100%
+                );
+
+            backdrop-filter: blur(8px);
+        }
+
+        .glass-card {
+            background: var(--light-glass);
+            backdrop-filter: var(--blur-effect);
+            border: 1px solid var(--light-border);
+            box-shadow: var(--light-shadow);
+            border-radius: 24px;
+        }
+
+        .text-gradient-polar {
+            background:
+                linear-gradient(
+                    135deg,
+                    #082f49 0%,
+                    #0284c7 60%,
+                    #0ea5e9 100%
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==============================
+           Accordion
+        ============================== */
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+
+            transition:
+                max-height 0.35s ease,
+                opacity 0.25s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            opacity: 1;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        /* ==============================
+           Article
+        ============================== */
+
+        .article-card {
+            border-left: 3px solid rgba(14, 165, 233, 0.2);
+        }
+
+        .article-card:hover {
+            border-left-color: rgba(14, 165, 233, 0.6);
+        }
+
+        .article-number {
+            font-family: monospace;
+            letter-spacing: 0.08em;
+        }
+
+        /* ==============================
+           Important Rules
+        ============================== */
+
+        .important-rule {
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(224, 239, 254, 0.85),
+                    rgba(255, 255, 255, 0.65)
+                );
+        }
+
+        /* ==============================
+           Header
+        ============================== */
+
+        #main-header {
+            transition:
+                transform 0.3s ease,
+                padding 0.3s ease;
+        }
+
+        /* ==============================
+           Mobile
+        ============================== */
+
+        @media (max-width: 640px) {
+            .glass-card {
+                border-radius: 20px;
+            }
+
+            .article-card {
+                border-left: 2px solid rgba(14, 165, 233, 0.2);
+            }
+        }
     </style>
 </head>
+
 <body class="antialiased">
+
     <div class="bg-overlay"></div>
 
-    <header id="main-header" class="fixed w-full z-50 top-0 transition-all duration-500 py-3 px-6">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex justify-between items-center glass-card shadow-sm border-white/50">
-            <a href="../index.html" class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg">
-                <img src="../../assets/logo.jpg" alt="2027 Winter UHC Logo" class="w-10 h-10 rounded-xl object-cover border border-white/70 shadow-sm">
-                <span class="font-display tracking-wider text-gradient-polar">WINTER UHC</span>
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header
+        id="main-header"
+        class="fixed w-full z-50 top-0 py-3 px-4 sm:px-6"
+    >
+        <div
+            class="
+                max-w-7xl mx-auto
+                px-4 sm:px-6
+                py-3
+                flex justify-between items-center
+                glass-card
+                shadow-sm
+                border-white/50
+            "
+        >
+
+            <a
+                href="../index.html"
+                class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg"
+            >
+                <img
+                    src="../../assets/logo.jpg"
+                    alt="2027 Winter UHC Logo"
+                    class="w-10 h-10 rounded-xl object-cover border border-white/70 shadow-sm"
+                >
+
+                <span
+                    class="font-display tracking-wider text-gradient-polar"
+                >
+                    WINTER UHC
+                </span>
             </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900">
-                <a href="../" class="hover:text-polar-500 transition-colors">首頁</a>
-                <a href="../encyclopedia" class="hover:text-polar-500 transition-colors">系統百科</a>
-                <a href="../database" class="hover:text-polar-500 transition-colors">礦物裝備</a>
-                <a href="../rules" class="text-polar-500 font-bold">賽事規則</a>
-                <a href="../progress" class="hover:text-polar-500 transition-colors">開發進度</a>
-                <a href="../register" class="px-5 py-2.5 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all">立即報名</a>
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="
+                    hidden md:flex
+                    items-center gap-8
+                    text-sm font-medium
+                    tracking-wider
+                    text-polar-900
+                "
+            >
+                <a href="../" class="hover:text-polar-500 transition-colors">
+                    首頁
+                </a>
+
+                <a href="../encyclopedia" class="hover:text-polar-500 transition-colors">
+                    系統百科
+                </a>
+
+                <a href="../database" class="hover:text-polar-500 transition-colors">
+                    礦物裝備
+                </a>
+
+                <a
+                    href="../rules"
+                    class="text-polar-500 font-bold"
+                >
+                    賽事規則
+                </a>
+
+                <a href="../progress" class="hover:text-polar-500 transition-colors">
+                    開發進度
+                </a>
+
+                <a
+                    href="../register"
+                    class="
+                        px-5 py-2.5
+                        bg-polar-900
+                        text-white
+                        rounded-xl
+                        shadow-lg
+                        hover:bg-polar-800
+                        transition-all
+                    "
+                >
+                    立即報名
+                </a>
             </nav>
-            <button id="mobile-menu-btn" class="md:hidden text-polar-950 p-1" aria-label="開啟選單"><i data-lucide="menu"></i></button>
+
+            <!-- Mobile Button -->
+
+            <button
+                id="mobile-menu-btn"
+                class="md:hidden text-polar-950 p-1"
+                aria-label="開啟選單"
+                aria-expanded="false"
+            >
+                <i data-lucide="menu"></i>
+            </button>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden max-w-7xl mx-auto mt-2 glass-card p-6 flex flex-col gap-4 text-polar-900">
-            <a href="../index.html" class="mobile-link hover:text-polar-500 transition-colors text-base">首頁</a>
-            <a href="../encyclopedia" class="mobile-link hover:text-polar-500 transition-colors text-base">系統百科</a>
-            <a href="../database" class="mobile-link hover:text-polar-500 transition-colors text-base">礦物裝備</a>
-            <a href="../rules" class="mobile-link text-polar-500 font-bold text-base">賽事規則</a>
-            <a href="../progress" class="mobile-link hover:text-polar-500 transition-colors text-base">開發進度</a>
-            <a href="../register" class="mobile-link hover:text-polar-500 transition-colors text-base">立即報名</a>
+        <!-- Mobile Navigation -->
+
+        <div
+            id="mobile-menu"
+            class="
+                hidden md:hidden
+                max-w-7xl mx-auto
+                mt-2
+                glass-card
+                p-6
+                flex flex-col gap-4
+                text-polar-900
+            "
+        >
+            <a href="../index.html" class="mobile-link hover:text-polar-500 transition-colors">
+                首頁
+            </a>
+
+            <a href="../encyclopedia" class="mobile-link hover:text-polar-500 transition-colors">
+                系統百科
+            </a>
+
+            <a href="../database" class="mobile-link hover:text-polar-500 transition-colors">
+                礦物裝備
+            </a>
+
+            <a href="../rules" class="mobile-link text-polar-500 font-bold">
+                賽事規則
+            </a>
+
+            <a href="../progress" class="mobile-link hover:text-polar-500 transition-colors">
+                開發進度
+            </a>
+
+            <a href="../register" class="mobile-link hover:text-polar-500 transition-colors">
+                立即報名
+            </a>
         </div>
     </header>
 
-    <main class="pt-32 pb-24 px-6 max-w-4xl mx-auto min-h-screen">
-        <div class="text-center mb-16">
-            <span class="text-polar-600 font-mono text-sm uppercase tracking-widest">Rules</span>
-            <h1 class="text-3xl md:text-4xl font-bold text-polar-950 mt-2 mb-3 tracking-wider">賽事規章</h1>
-        </div>
 
-        <div class="space-y-4">
-            <div class="accordion-item glass-card overflow-hidden">
-                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
-                    <span class="font-bold text-polar-950 text-base md:text-lg">1. 嚴禁任何形式之外掛與巨集</span>
-                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
-                </button>
-                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
-                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">禁止使用任何加速、透視、自動點擊或修改客戶端封包之行為。違規將永久禁賽。</div>
-                </div>
+    <!-- ==========================================
+         MAIN
+    =========================================== -->
+
+    <main class="pt-32 pb-24 px-4 sm:px-6 max-w-5xl mx-auto">
+
+        <!-- Hero -->
+
+        <section class="text-center mb-12">
+
+            <span
+                class="
+                    text-polar-600
+                    font-mono
+                    text-sm
+                    uppercase
+                    tracking-widest
+                "
+            >
+                Rules
+            </span>
+
+            <h1
+                class="
+                    text-3xl
+                    md:text-5xl
+                    font-bold
+                    text-polar-950
+                    mt-2
+                    mb-4
+                    tracking-wider
+                "
+            >
+                賽事規章
+            </h1>
+
+            <p class="text-polar-700 text-base md:text-lg">
+                2027 冬季 UHC 錦標賽
+            </p>
+
+            <div
+                class="
+                    mt-5
+                    flex flex-wrap
+                    justify-center
+                    gap-2
+                "
+            >
+                <span
+                    class="
+                        px-4 py-1.5
+                        rounded-full
+                        bg-polar-100
+                        text-polar-700
+                        border border-polar-200
+                        text-sm
+                        font-mono
+                        font-bold
+                    "
+                >
+                    草案 v2.0
+                </span>
+
+                <span
+                    class="
+                        px-4 py-1.5
+                        rounded-full
+                        bg-white/70
+                        text-polar-700
+                        border border-white
+                        text-sm
+                    "
+                >
+                    共 13 章・41 條
+                </span>
             </div>
-            
+        </section>
+
+
+        <!-- ==========================================
+             IMPORTANT NOTICE
+        =========================================== -->
+
+        <section
+            class="
+                glass-card
+                important-rule
+                p-6 md:p-8
+                mb-8
+            "
+        >
+
+            <div class="flex gap-4">
+
+                <div
+                    class="
+                        shrink-0
+                        w-11 h-11
+                        rounded-xl
+                        bg-polar-900
+                        text-white
+                        flex items-center justify-center
+                    "
+                >
+                    <i data-lucide="scale" class="w-5 h-5"></i>
+                </div>
+
+                <div>
+
+                    <h2
+                        class="
+                            font-bold
+                            text-polar-950
+                            text-lg
+                            mb-2
+                        "
+                    >
+                        參賽者須知
+                    </h2>
+
+                    <p
+                        class="
+                            text-polar-800
+                            leading-relaxed
+                            text-sm md:text-base
+                        "
+                    >
+                        完成報名並參與活動者，視為已閱讀、理解並同意本規章全部內容。
+                        規章未明確規範之情形，不代表自動允許；參賽者不得利用文字、
+                        技術漏洞或未明文規定事項取得明顯不公平優勢。
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             QUICK SUMMARY
+        =========================================== -->
+
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
+
+            <div class="glass-card p-5 text-center">
+                <div class="text-2xl font-bold text-polar-950">3</div>
+                <div class="text-xs text-polar-600 mt-1">單隊最大人數</div>
+            </div>
+
+            <div class="glass-card p-5 text-center">
+                <div class="text-2xl font-bold text-polar-950">24h</div>
+                <div class="text-xs text-polar-600 mt-1">一般申訴期限</div>
+            </div>
+
+            <div class="glass-card p-5 text-center">
+                <div class="text-2xl font-bold text-polar-950">2h</div>
+                <div class="text-xs text-polar-600 mt-1">獎金最低遊玩紀錄</div>
+            </div>
+
+            <div class="glass-card p-5 text-center">
+                <div class="text-2xl font-bold text-polar-950">13</div>
+                <div class="text-xs text-polar-600 mt-1">規章章節</div>
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             RULES
+        =========================================== -->
+
+        <section id="rules-list" class="space-y-4">
+
+
+            <!-- ==============================
+                 第零章
+            =============================== -->
+
             <div class="accordion-item glass-card overflow-hidden">
-                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
-                    <span class="font-bold text-polar-950 text-base md:text-lg">2. 禁止跨隊惡意組隊 (Teaming)</span>
+
+                <button
+                    class="
+                        accordion-button
+                        w-full
+                        px-6 md:px-8
+                        py-5
+                        flex
+                        justify-between
+                        items-center
+                        text-left
+                        hover:bg-white/40
+                        transition-colors
+                    "
+                    onclick="toggleAccordion(this)"
+                >
+
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">
+                            CHAPTER 00
+                        </div>
+
+                        <span class="font-bold text-polar-950 text-lg">
+                            第零章｜定義
+                        </span>
+                    </div>
+
+                    <i
+                        data-lucide="chevron-down"
+                        class="accordion-icon text-polar-500 w-6 h-6 shrink-0"
+                    ></i>
+
+                </button>
+
+
+                <div class="accordion-content">
+
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 01</span>
+                                官方
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                即 bloxd.io 背後運作之團隊。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 02</span>
+                                程式
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                任何由瀏覽器或電腦運行之 JavaScript、Python、C++ 等電腦語言。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 03</span>
+                                材質包
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                於 bloxd.io 設定介面可安裝之合法 Texture Pack。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 04</span>
+                                伺服器
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                本次活動進行時使用的連線房間或硬體設備。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 05</span>
+                                淘汰
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                指參賽者因遊戲內死亡、遭主辦單位取消資格，
+                                或依本規章認定失去繼續參賽資格之狀態。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 06</span>
+                                外掛
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                任何透過軟體、硬體、腳本、瀏覽器擴充功能、
+                                自動化工具或其他方式提供額外資訊、自動操作
+                                或不公平優勢之工具。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                <span class="article-number text-polar-500 mr-2">定義 07</span>
+                                實體
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                任何生物、船或官方認定之 Entity。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ==============================
+                 第一章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 01</div>
+                        <span class="font-bold text-polar-950 text-lg">第一章｜總則</span>
+                    </div>
                     <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
                 </button>
-                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
-                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">本賽事為獨立小隊生死鬥。嚴禁與其他隊伍私下協議停戰或交換物資。</div>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第1條｜宗旨</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                本活動旨在提供公平、公開之競技環境，所有參與者均應遵守本規章。
+                                規則未列出之行為，不代表自動允許；參賽者不得利用本規章文字漏洞、
+                                技術漏洞或未明文規定事項取得明顯不公平優勢。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第2條｜規章效力</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                完成報名並參與活動者，視為已閱讀、理解並同意本規章全部內容。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第3條｜主辦單位</h3>
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                主辦單位即社群內所有管理員及副管，有義務處理：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>賽事管理技術維護，包括指令漏洞及其他重大問題維護。</li>
+                                <li>違規調查，包括對舉報事件之處理。</li>
+                                <li>流程處理，包括針對時間做出限制。</li>
+                                <li>獎金發放。</li>
+                            </ol>
+                        </article>
+
+                    </div>
                 </div>
             </div>
 
+
+            <!-- ==============================
+                 第二章
+            =============================== -->
+
             <div class="accordion-item glass-card overflow-hidden">
-                <button class="w-full px-8 py-5 flex justify-between items-center text-left focus:outline-none hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
-                    <span class="font-bold text-polar-950 text-base md:text-lg">3. 戰鬥登出處理</span>
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 02</div>
+                        <span class="font-bold text-polar-950 text-lg">第二章｜資格</span>
+                    </div>
                     <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
                 </button>
-                <div class="accordion-content bg-white/50 border-t border-polar-100/50">
-                    <div class="px-8 py-5 text-polar-800 text-base leading-relaxed">遭受攻擊後的 30 秒內強行關閉遊戲視為戰鬥登出，角色將直接判定死亡。</div>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第4條｜參賽條件</h3>
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                參與者須符合以下條件：
+                            </p>
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>使用合法 bloxd.io 帳號，並綁定 Google、Apple 或 Discord 帳號。</li>
+                                <li>提供正確聯絡資訊。</li>
+                                <li>遵守賽事規章。</li>
+                            </ol>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第5條｜禁止代打</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                任何人不得代替他人參賽、共用帳號參賽或冒名參加。
+                                違者立即取消資格。
+                            </p>
+                        </article>
+
+                    </div>
                 </div>
             </div>
-        </div>
+
+
+            <!-- ==============================
+                 第三章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 03</div>
+                        <span class="font-bold text-polar-950 text-lg">第三章｜規則</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第6條｜勝利條件</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                最後存活之玩家獲勝；或於符合賽事程序之情況下，
+                                由剩餘參賽者全數同意時，獎金平分。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第7條｜死亡規則</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                玩家死亡後立即淘汰，不得重新加入比賽。
+                                惟在符合主辦單位公告之復活條件且無違規紀錄時，
+                                得使用一次復活機會。
+                            </p>
+
+                            <div class="mt-4 p-4 rounded-xl bg-polar-50 border border-polar-100 text-sm text-polar-800">
+                                <strong>復活制度：</strong>
+                                復活資格之異動，得於比賽過程中經
+                                <strong>全體具參賽資格者二分之一以上</strong>
+                                同意後調整。
+                            </div>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第8條｜世界邊界</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                世界邊界由主辦單位公告。
+                                玩家不得故意利用邊界漏洞進行任何行為。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第9條｜PvP</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                PvP 開放時間依公告為準。
+                                未開放前不得利用任何方式擊殺或干擾其他玩家。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第四章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 04</div>
+                        <span class="font-bold text-polar-950 text-lg">第四章｜前端（Client）與模組</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第10條｜材質包</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                本次活動允許安裝部分材質包，前提為不得提供競技優勢。
+                                若有需要安裝材質包，須為原版官方提供，
+                                或經全體參賽員半數同意之材質包；後者須於伺服器內公布完整材質包。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第11條｜禁止項目</h3>
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                禁止任何能提供額外資訊或自動操作之工具，包括但不限於：
+                            </p>
+
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-lg bg-white border border-polar-200 text-polar-700 text-sm">
+                                    X-Ray
+                                </span>
+
+                                <span class="px-3 py-1 rounded-lg bg-white border border-polar-200 text-polar-700 text-sm">
+                                    AutoClicker
+                                </span>
+
+                                <span class="px-3 py-1 rounded-lg bg-white border border-polar-200 text-polar-700 text-sm">
+                                    其他自動化工具
+                                </span>
+                            </div>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">第12條｜未列出程式</h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                未列於允許名單之程式，須於賽前向主辦單位申請。
+                                申請通過後將於社群公布豁免；未經核准者視為禁止。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第五章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 05</div>
+                        <span class="font-bold text-polar-950 text-lg">第五章｜公平競技</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第13條｜外掛程式
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                任何形式之外掛均屬嚴重違規，
+                                將立即淘汰並永久禁賽。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第14條｜利用漏洞
+                            </h3>
+                            <p class="text-polar-800 leading-relaxed">
+                                禁止利用遊戲漏洞（含透視、破壞或穿越基岩）、
+                                地圖漏洞、伺服器漏洞或指令漏洞，
+                                獲取任何不公平優勢。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第15條｜惡意影響伺服器
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                禁止以下行為：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>卡服。</li>
+                                <li>洗或使用封包技術。</li>
+                                <li>惡意實體堆積。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800">
+                                違反者將直接取消資格。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第六章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 06</div>
+                        <span class="font-bold text-polar-950 text-lg">第六章｜通訊與資訊</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第16條｜通訊
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                原則上不干預伺服器內聊天室行為，
+                                或伺服器內玩家使用 Discord 或其他通訊軟體進行語音或文字通訊；
+                                惟不得以任何方式侮辱或誹謗任何參賽員。
+                            </p>
+
+                            <p class="text-polar-800 leading-relaxed mt-3">
+                                主辦單位有責任在參賽員要求下建立官方聊天室。
+                                如有需要，經社群內超過四分之一參賽者連署後，
+                                即進行建立程序。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第17條｜外部資訊
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                禁止以下行為：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>觀眾報點。</li>
+                                <li>第三方報點。</li>
+                                <li>直播偷看。</li>
+                                <li>使用其他帳號觀戰。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800">
+                                以及任何可能影響其餘參賽員之通訊行為。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第18條｜結盟
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                每一名參賽者最多僅可與 2 名其他玩家形成固定結盟關係，
+                                即每隊最大人數為 3 人。
+                                詳細規章見第十二章。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第七章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 07</div>
+                        <span class="font-bold text-polar-950 text-lg">第七章｜錄影與證據</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第19條｜錄影義務
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                主辦單位得要求參賽者錄製比賽爭議過程。
+                                若有任何爭議，參賽者須於 24 小時內申訴並提供錄影。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第20條｜證據認定
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                主辦單位得依以下事證進行裁定：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>錄影。</li>
+                                <li>截圖。</li>
+                                <li>直播存檔。</li>
+                                <li>伺服器日誌。</li>
+                                <li>系統紀錄。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800">
+                                指令團隊有權公布違規紀錄。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第21條｜妨礙調查
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                拒絕配合調查者，視情節得處以警告、淘汰或禁賽。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第八章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 08</div>
+                        <span class="font-bold text-polar-950 text-lg">第八章｜斷線與技術問題</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第22條｜個人斷線
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                玩家斷線時若血量小於或等於 50 單位，
+                                將視為正常死亡。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第23條｜大規模異常
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                當發生以下事件：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>伺服器崩潰。</li>
+                                <li>大規模斷線。</li>
+                                <li>官方重大更新，以致於嚴重影響活動進行。</li>
+                                <li>未提及但經由半數參與者同意之事件。</li>
+                                <li>
+                                    主辦單位認定之影響參賽員權利之重大事件，
+                                    並經由四分之一參賽員連署。
+                                </li>
+                            </ol>
+
+                            <p class="mt-4 text-polar-800 leading-relaxed">
+                                主辦單位得進行以下操作之一或並行：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 mt-2 text-polar-800">
+                                <li>暫停賽事。</li>
+                                <li>重賽。</li>
+                                <li>
+                                    經由超過四分之一參賽者同意後，
+                                    取消本次活動。
+                                </li>
+                            </ol>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第九章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 09</div>
+                        <span class="font-bold text-polar-950 text-lg">第九章｜獎金</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第24條｜獎金資格
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                獲獎者須符合以下條件：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>合法參賽。</li>
+                                <li>無違規紀錄。</li>
+                                <li>
+                                    至少 2 小時在線紀錄並錄影存證。
+                                    期間必須正常移動，不得掛機或無法證明參賽者正在正常遊戲。
+                                </li>
+                            </ol>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第25條｜取消資格
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                如於賽後發現違規，主辦單位得進行以下操作之一或並行：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 mt-3 text-polar-800">
+                                <li>取消成績。</li>
+                                <li>收回獎金。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800 leading-relaxed">
+                                並於調整排名後重新發放獎金。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第26條｜稅務
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                獎金涉及法令規定者，獲獎者應配合必要程序，
+                                所有衍生費用應由獲獎者支付。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第十章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 10</div>
+                        <span class="font-bold text-polar-950 text-lg">第十章｜處分</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第27條｜警告
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                經判定之輕微違規，得由主辦單位進行以下操作：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 mt-3 text-polar-800">
+                                <li>口頭警告。</li>
+                                <li>書面警告。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800 leading-relaxed">
+                                單次警告不視為違規紀錄；
+                                累犯超過 3 次者，視為一次違規紀錄。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第28條｜Ban（淘汰）
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                以下重大違規得直接淘汰：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 mt-3 text-polar-800">
+                                <li>利用漏洞。</li>
+                                <li>非法合作。</li>
+                                <li>妨礙比賽。</li>
+                            </ol>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第29條｜禁賽
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                以下嚴重違規，經主辦單位決定後永久禁賽：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 mt-3 text-polar-800">
+                                <li>外掛。</li>
+                                <li>惡意攻擊伺服器。</li>
+                                <li>偽造證據。</li>
+                            </ol>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第十一章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 11</div>
+                        <span class="font-bold text-polar-950 text-lg">第十一章｜申訴</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第30條｜提出申訴
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                參賽者若認為任何事件不公或損害任何人權益，
+                                須於事件發生後 24 小時內提出。
+                                申訴須經至少 1 位參賽者附署，
+                                並提出至少 1 則物證，即進行申訴程序。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第31條｜覆核
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                對於申訴結果不滿者，針對同一事件得在提出辯說
+                                或具體證據之情況下，於申訴結果公布後 24 小時內提出覆核。
+                                覆核程序比照申訴。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第32條｜最終裁定
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                任何事件之最新結果裁定公布後 24 小時，
+                                即做出最終裁定，針對此事件不得再進行任何更動。
+                                惟涉及外掛、偽造證據或重大違規者，不在此限。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第十二章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 12</div>
+                        <span class="font-bold text-polar-950 text-lg">第十二章｜結盟</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第33條｜定義
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                合法結盟必須包含至少 2 人，有共同之語音連線及聊天室
+                                （不限軟體），並且必須建立部落（Tribe）。
+                                請於比賽開始前申請。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第34條｜允許行為
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                合法結盟內部允許：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>共同移動。</li>
+                                <li>共同戰鬥，包括圍攻單一目標。</li>
+                                <li>共享物資。</li>
+                                <li>共用基地與儲存空間。</li>
+                                <li>協同追擊與防守。</li>
+                            </ol>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第35條｜非法聚集行為
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                以下行為視為違規：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>結盟人數超過 3 人進行任何行動。</li>
+                                <li>
+                                    3 人以上非結盟狀態下進行長時間共同移動，
+                                    即超過 5 分鐘。
+                                </li>
+                                <li>跨隊伍持續資源共享或戰術協作。</li>
+                            </ol>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第36條｜臨時合作
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                允許短暫互動，但不得構成長期協同：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>短時間交易。</li>
+                                <li>短暫互不攻擊通行。</li>
+                                <li>非持續性共同對抗環境威脅。</li>
+                            </ol>
+
+                            <p class="mt-3 text-polar-800 leading-relaxed">
+                                若演變為持續戰術配合，裁判得認定為非法結盟。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第37條｜非法認定
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed mb-3">
+                                以下為結盟認定原則。
+                                裁判將綜合以下因素判定是否構成結盟：
+                            </p>
+
+                            <ol class="list-decimal list-inside space-y-1 text-polar-800">
+                                <li>是否持續共同移動。</li>
+                                <li>是否共享資源或補給。</li>
+                                <li>是否共同攻擊第三方。</li>
+                                <li>
+                                    是否存在戰術互補行為，
+                                    如引誘、包夾、保護。
+                                </li>
+                            </ol>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ==============================
+                 第十三章
+            =============================== -->
+
+            <div class="accordion-item glass-card overflow-hidden">
+
+                <button class="accordion-button w-full px-6 md:px-8 py-5 flex justify-between items-center text-left hover:bg-white/40 transition-colors" onclick="toggleAccordion(this)">
+                    <div>
+                        <div class="text-xs text-polar-500 font-mono mb-1">CHAPTER 13</div>
+                        <span class="font-bold text-polar-950 text-lg">第十三章｜附則</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="accordion-icon text-polar-500 w-6 h-6"></i>
+                </button>
+
+                <div class="accordion-content">
+                    <div class="px-5 md:px-8 pb-6 space-y-3">
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第38條｜公平競技原則
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                本規章未明確規範之情形，
+                                裁判組得依公平競技原則裁定。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第39條｜規章修訂
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                主辦單位得於正式活動開始前修訂規章。
+                                修訂內容應公告後始生效。
+                                除重大技術問題或法律要求外，
+                                不得追溯適用。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第40條｜生效
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                本規章自活動開始起生效。
+                            </p>
+                        </article>
+
+                        <article class="article-card bg-white/45 rounded-xl p-5">
+                            <h3 class="font-bold text-polar-950 mb-2">
+                                第41條｜失效
+                            </h3>
+
+                            <p class="text-polar-800 leading-relaxed">
+                                本規章將於比賽活動獎金程序處理完畢後立即失效，
+                                屆時將於 24 小時內提出新的伺服器規章。
+                            </p>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+
+        <!-- ==========================================
+             FINAL NOTICE
+        =========================================== -->
+
+        <section
+            class="
+                mt-10
+                glass-card
+                p-6 md:p-8
+                text-center
+            "
+        >
+
+            <i
+                data-lucide="file-check-2"
+                class="w-8 h-8 mx-auto mb-4 text-polar-500"
+            ></i>
+
+            <h2 class="font-bold text-polar-950 text-lg mb-2">
+                規章版本
+            </h2>
+
+            <p class="text-polar-700 text-sm leading-relaxed">
+                本頁目前展示《UHC 規章（草案 v2.0）》。
+                正式活動開始前，主辦單位得依第 39 條修訂規章。
+                正式版本以主辦單位最新公告為準。
+            </p>
+
+        </section>
+
     </main>
 
-    <footer class="border-t border-polar-200 bg-white/40 py-12 px-6">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex items-center gap-3 font-bold tracking-widest"><i data-lucide="snowflake" class="text-polar-500"></i><span class="font-display">WINTER UHC 2027</span></div>
-            <p class="text-sm text-polar-600">&copy; 2027 Winter UHC Championship. 非官方社群賽事。</p>
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer
+        class="
+            border-t
+            border-polar-200
+            bg-white/40
+            py-12
+            px-6
+        "
+    >
+
+        <div
+            class="
+                max-w-7xl mx-auto
+                flex flex-col md:flex-row
+                justify-between
+                items-center
+                gap-6
+                text-base
+                text-polar-800
+            "
+        >
+
+            <div
+                class="
+                    flex items-center gap-3
+                    font-bold
+                    tracking-widest
+                "
+            >
+                <i
+                    data-lucide="snowflake"
+                    class="text-polar-500"
+                ></i>
+
+                <span class="font-display">
+                    WINTER UHC 2027
+                </span>
+            </div>
+
+            <p class="text-sm text-polar-600">
+                &copy; 2027 Winter UHC Championship.
+                非官方社群賽事。
+            </p>
+
         </div>
+
     </footer>
 
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
     <script>
+
+        /* ==============================
+           Lucide
+        =============================== */
+
         lucide.createIcons();
 
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+
+        /* ==============================
+           Mobile Menu
+        =============================== */
+
+        const mobileBtn =
+            document.getElementById('mobile-menu-btn');
+
+        const mobileMenu =
+            document.getElementById('mobile-menu');
+
         if (mobileBtn && mobileMenu) {
-            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-            document.querySelectorAll('.mobile-link').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+
+            mobileBtn.addEventListener('click', () => {
+
+                const isHidden =
+                    mobileMenu.classList.contains('hidden');
+
+                mobileMenu.classList.toggle('hidden');
+
+                mobileBtn.setAttribute(
+                    'aria-expanded',
+                    String(isHidden)
+                );
             });
-            document.addEventListener('click', (event) => {
-                if (!mobileMenu.contains(event.target) && !mobileBtn.contains(event.target)) {
+
+
+            document
+                .querySelectorAll('.mobile-link')
+                .forEach(link => {
+
+                    link.addEventListener('click', () => {
+
+                        mobileMenu.classList.add('hidden');
+
+                        mobileBtn.setAttribute(
+                            'aria-expanded',
+                            'false'
+                        );
+
+                    });
+
+                });
+
+
+            document.addEventListener('click', event => {
+
+                if (
+                    !mobileMenu.contains(event.target) &&
+                    !mobileBtn.contains(event.target)
+                ) {
+
                     mobileMenu.classList.add('hidden');
+
+                    mobileBtn.setAttribute(
+                        'aria-expanded',
+                        'false'
+                    );
+
                 }
+
             });
+
         }
 
-        function toggleAccordion(btn) {
-            const item = btn.parentElement;
-            const content = item.querySelector('.accordion-content');
-            
-            document.querySelectorAll('.accordion-item.active').forEach(activeItem => {
-                if(activeItem !== item) {
-                    activeItem.classList.remove('active');
-                    activeItem.querySelector('.accordion-content').style.maxHeight = null;
-                }
-            });
 
-            item.classList.toggle('active');
-            if (item.classList.contains('active')) {
-                content.style.maxHeight = content.scrollHeight + "px";
-            } else {
+        /* ==============================
+           Accordion
+        =============================== */
+
+        function toggleAccordion(button) {
+
+            const item =
+                button.closest('.accordion-item');
+
+            const content =
+                item.querySelector('.accordion-content');
+
+            const isActive =
+                item.classList.contains('active');
+
+
+            /*
+             * 關閉其他章節
+             */
+
+            document
+                .querySelectorAll('.accordion-item.active')
+                .forEach(activeItem => {
+
+                    if (activeItem !== item) {
+
+                        activeItem.classList.remove('active');
+
+                        const activeContent =
+                            activeItem.querySelector(
+                                '.accordion-content'
+                            );
+
+                        activeContent.style.maxHeight = null;
+
+                    }
+
+                });
+
+
+            /*
+             * 切換目前章節
+             */
+
+            if (isActive) {
+
+                item.classList.remove('active');
+
                 content.style.maxHeight = null;
+
+            } else {
+
+                item.classList.add('active');
+
+                content.style.maxHeight =
+                    content.scrollHeight + 'px';
+
             }
+
         }
+
+
+        /* ==============================
+           Header Scroll Effect
+        =============================== */
+
+        const header =
+            document.getElementById('main-header');
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener(
+            'scroll',
+            () => {
+
+                const currentScrollY =
+                    window.scrollY;
+
+                if (currentScrollY > 30) {
+
+                    header.classList.add(
+                        'py-1'
+                    );
+
+                } else {
+
+                    header.classList.remove(
+                        'py-1'
+                    );
+
+                }
+
+                lastScrollY = currentScrollY;
+
+            },
+            {
+                passive: true
+            }
+        );
+
     </script>
+
 </body>
 </html>
