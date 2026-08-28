@@ -1163,8 +1163,11 @@
           <p><strong>參賽顯示名稱:</strong> ${playerName}</p>
           <p><strong>座右銘:</strong> ${motto}</p>
         `;
-        document.getElementById("cancel").value = "返回修改";
+        document.getElementById("cancel").textContent = "返回修改";
         modal.classList.add("modal-enter");
+        document
+          .getElementById("btn-final-submit")
+          .classList.remove("hidden");
       }
 
       function closeModal() {
@@ -1197,9 +1200,9 @@
                 </div>
               `;
               document.getElementById("modal-details").innerHTML = `
-                <p><strong>錯誤訊息</strong> ${text.message}</p>
+                <p><strong>錯誤訊息：</strong>${text.message}</p>
               `;
-              document.getElementById("cancel").value = "返回修改";
+              document.getElementById("cancel").textContent = "返回修改";
             } else {
               document.getElementById("modal-title").innerHTML = `
                 <div class="text-xs tracking-widest text-polar-500 font-bold" >
@@ -1207,10 +1210,10 @@
                 </div>
               `;
               document.getElementById("modal-details").innerHTML =
-                "<p>NovaCircuit感謝您報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您確認資料及材質包、詳細說明</p>";
+                "<p>NovaCircuit感謝您們報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您們的隊伍確認資料及材質包、詳細說明</p>";
               document.getElementById("registration-form").reset();
             }
-            document.getElementById("cancel").value = "返回修改";
+            document.getElementById("cancel").textContent = "了解";
             document.getElementById("btn-final-submit").classList.add("hidden");
           });
       }
