@@ -1069,7 +1069,8 @@
       import * as handle from "../../assets/handle.js";
 
       const supabaseUrl = "https://pxjfnewychisfnxjmcob.supabase.co";
-      const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
       const supabaseClient = window.supabase.createClient(
         supabaseUrl,
         supabaseKey,
@@ -1091,9 +1092,11 @@
         initScrollEffect();
       });
 
-      document.getElementById("btn-final-submit").addEventListener("click", (event) => {
-        submitToSupabase();
-      });
+      document
+        .getElementById("btn-final-submit")
+        .addEventListener("click", (event) => {
+          submitToSupabase();
+        });
 
       /* =========================================================
            Mobile Menu
@@ -1160,9 +1163,7 @@
         `;
         document.getElementById("cancel").textContent = "返回修改";
         modal.classList.add("modal-enter");
-        document
-          .getElementById("btn-final-submit")
-          .classList.remove("hidden");
+        document.getElementById("btn-final-submit").classList.remove("hidden");
       }
 
       function closeModal() {
@@ -1175,13 +1176,9 @@
         const teamName = document.getElementById("team_name").value.trim();
 
         supabaseClient
-          .from("players")
-          .insert({
-            join_code: joinCode,
-            email: email,
-            player_id: playerId,
-            player_name: playerName,
-            motto,
+          .rpc("create_team", {
+            p_team_name: teamName,
+            p_contact_email: email,
           })
           .then((response) => {
             if (response.error) {
@@ -1201,12 +1198,18 @@
                   報名成功!!
                 </div>
               `;
+              /* json_data_格式(
+                'success', true,
+                'join_code', new_join_code)
+              */
               document.getElementById("modal-details").innerHTML =
-                "<p>NovaCircuit感謝您們報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您們的隊伍確認資料及材質包、詳細說明</p>";
+                `<p>NovaCircuit感謝您們報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您們的隊伍確認資料及材質包、詳細說明</p>
+                 <h2>請<strong>務必</strong>複製以下的隊伍加入代碼，若遺失請聯繫主辦單位協尋</h2>
+                 <h4>${response.data.join_code}</h4>`;
               document.getElementById("registration-form").reset();
               document.getElementById("cancel").textContent = "了解";
             }
-            
+
             document.getElementById("btn-final-submit").classList.add("hidden");
           });
       }
