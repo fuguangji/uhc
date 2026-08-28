@@ -1117,8 +1117,7 @@
     ========================================================= -->
     <script type="module">
       import * as handle from "../../assets/handle.js";
-    </script>
-    <script>
+
       const supabaseUrl = "https://your-supabase-url.supabase.co";
       const supabaseKey = "your-supabase-key";
       const supabaseClient = window.supabase.createClient(
@@ -1245,16 +1244,23 @@
                 </div>
               `;
               document.getElementById("modal-details").innerHTML = `
-                <p><strong>訊息 ${text.message}</p>
+                <p><strong>錯誤訊息</strong> ${text.message}</p>
               `;
             } else {
-              alert("報名成功！");
-              closeModal();
+              document.getElementById("modal-title").innerHTML = `
+                <div class="text-xs tracking-widest text-polar-500 font-bold" >
+                  報名成功!!
+                </div>
+              `;
+              document.getElementById("modal-details").innerHTML = "<p><strong>成功訊息</strong> 無</p>";
               document.getElementById("registration-form").reset();
             }
+            document
+              .getElementById("btn-final-submit")
+              .classList.add("hidden");
           });
       }
-      
+
     </script>
   </body>
 </html>
