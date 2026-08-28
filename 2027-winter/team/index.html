@@ -1,14 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-TW" class="scroll-smooth">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>2027 冬季 UHC 錦標賽 | 立即報名</title>
 
-    <link rel="icon" type="image/png" href="../../assets/logo.jpg">
-    <link rel="shortcut icon" href="../../assets/logo.jpg">
+    <link rel="icon" type="image/png" href="../../assets/logo.jpg" />
+    <link rel="shortcut icon" href="../../assets/logo.jpg" />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,1583 +20,1200 @@
 
     <!-- Fonts -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Syncopate:wght@700&display=swap"
-        rel="stylesheet"
-    >
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;800;900&family=Syncopate:wght@700&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans TC"', 'sans-serif'],
-                        display: ['"Syncopate"', 'sans-serif']
-                    },
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Noto Sans TC"', "sans-serif"],
+              display: ['"Syncopate"', "sans-serif"],
+            },
 
-                    colors: {
-                        polar: {
-                            50: '#f0f7ff',
-                            100: '#e0effe',
-                            200: '#bae0fd',
-                            300: '#7cc8fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                            950: '#082f49'
-                        }
-                    }
-                }
-            }
-        }
+            colors: {
+              polar: {
+                50: "#f0f7ff",
+                100: "#e0effe",
+                200: "#bae0fd",
+                300: "#7cc8fc",
+                400: "#38bdf8",
+                500: "#0ea5e9",
+                600: "#0284c7",
+                700: "#0369a1",
+                800: "#075985",
+                900: "#0c4a6e",
+                950: "#082f49",
+              },
+            },
+          },
+        },
+      };
     </script>
 
     <style>
-
-        /* =========================================================
+      /* =========================================================
            基礎
         ========================================================= */
 
-        :root {
-            --polar-50: #f0f7ff;
-            --polar-100: #e0effe;
-            --polar-200: #bae0fd;
-            --polar-300: #7cc8fc;
-            --polar-400: #38bdf8;
-            --polar-500: #0ea5e9;
-            --polar-600: #0284c7;
-            --polar-700: #0369a1;
-            --polar-800: #075985;
-            --polar-900: #0c4a6e;
-            --polar-950: #082f49;
+      :root {
+        --polar-50: #f0f7ff;
+        --polar-100: #e0effe;
+        --polar-200: #bae0fd;
+        --polar-300: #7cc8fc;
+        --polar-400: #38bdf8;
+        --polar-500: #0ea5e9;
+        --polar-600: #0284c7;
+        --polar-700: #0369a1;
+        --polar-800: #075985;
+        --polar-900: #0c4a6e;
+        --polar-950: #082f49;
 
-            --glass:
-                rgba(255, 255, 255, 0.72);
+        --glass: rgba(255, 255, 255, 0.72);
 
-            --glass-border:
-                rgba(255, 255, 255, 0.68);
+        --glass-border: rgba(255, 255, 255, 0.68);
 
-            --glass-shadow:
-                0 25px 80px rgba(3, 105, 161, 0.16);
-        }
+        --glass-shadow: 0 25px 80px rgba(3, 105, 161, 0.16);
+      }
 
-        * {
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        body {
-            margin: 0;
-            background:
-                linear-gradient(
-                    135deg,
-                    #f0f7ff 0%,
-                    #e7f3ff 42%,
-                    #d9edfc 100%
-                );
-            color: var(--polar-950);
-            font-family: "Noto Sans TC", sans-serif;
-            overflow-x: hidden;
-        }
+      body {
+        margin: 0;
+        background: linear-gradient(
+          135deg,
+          #f0f7ff 0%,
+          #e7f3ff 42%,
+          #d9edfc 100%
+        );
+        color: var(--polar-950);
+        font-family: "Noto Sans TC", sans-serif;
+        overflow-x: hidden;
+      }
 
-        /* =========================================================
+      /* =========================================================
            背景
         ========================================================= */
 
-        .page-background {
-            position: fixed;
-            inset: 0;
-            z-index: -10;
-            overflow: hidden;
-            pointer-events: none;
+      .page-background {
+        position: fixed;
+        inset: 0;
+        z-index: -10;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .page-background::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background:
+          radial-gradient(
+            circle at 15% 20%,
+            rgba(56, 189, 248, 0.24),
+            transparent 32%
+          ),
+          radial-gradient(
+            circle at 85% 70%,
+            rgba(14, 165, 233, 0.18),
+            transparent 34%
+          ),
+          linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.6),
+            rgba(224, 239, 254, 0.65)
+          );
+      }
+
+      .aurora {
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+
+        filter: blur(100px);
+        opacity: 0.25;
+
+        animation: auroraFloat 14s ease-in-out infinite alternate;
+      }
+
+      .aurora-1 {
+        top: -300px;
+        left: -250px;
+        background: #38bdf8;
+      }
+
+      .aurora-2 {
+        right: -300px;
+        bottom: -300px;
+        background: #0ea5e9;
+        animation-delay: -6s;
+      }
+
+      @keyframes auroraFloat {
+        from {
+          transform: translate3d(0, 0, 0) scale(1);
         }
 
-        .page-background::before {
-            content: "";
-            position: absolute;
-            inset: 0;
+        to {
+          transform: translate3d(80px, 40px, 0) scale(1.12);
+        }
+      }
 
-            background:
-                radial-gradient(
-                    circle at 15% 20%,
-                    rgba(56, 189, 248, 0.24),
-                    transparent 32%
-                ),
-                radial-gradient(
-                    circle at 85% 70%,
-                    rgba(14, 165, 233, 0.18),
-                    transparent 34%
-                ),
-                linear-gradient(
-                    135deg,
-                    rgba(255,255,255,0.6),
-                    rgba(224,239,254,0.65)
-                );
+      /* 雪花粒子 */
+
+      .snow {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+
+        animation: snowfall linear infinite;
+      }
+
+      @keyframes snowfall {
+        from {
+          transform: translate3d(0, -20px, 0) rotate(0deg);
         }
 
-        .aurora {
-            position: absolute;
-            width: 700px;
-            height: 700px;
-            border-radius: 50%;
-
-            filter: blur(100px);
-            opacity: 0.25;
-
-            animation:
-                auroraFloat 14s ease-in-out infinite alternate;
+        to {
+          transform: translate3d(120px, 110vh, 0) rotate(360deg);
         }
+      }
 
-        .aurora-1 {
-            top: -300px;
-            left: -250px;
-            background: #38bdf8;
-        }
-
-        .aurora-2 {
-            right: -300px;
-            bottom: -300px;
-            background: #0ea5e9;
-            animation-delay: -6s;
-        }
-
-        @keyframes auroraFloat {
-            from {
-                transform: translate3d(0, 0, 0) scale(1);
-            }
-
-            to {
-                transform: translate3d(80px, 40px, 0) scale(1.12);
-            }
-        }
-
-        /* 雪花粒子 */
-
-        .snow {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.9);
-
-            box-shadow:
-                0 0 10px rgba(255,255,255,0.8);
-
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            from {
-                transform:
-                    translate3d(0, -20px, 0)
-                    rotate(0deg);
-            }
-
-            to {
-                transform:
-                    translate3d(120px, 110vh, 0)
-                    rotate(360deg);
-            }
-        }
-
-        /* =========================================================
+      /* =========================================================
            Glass
         ========================================================= */
 
-        .glass {
-            background: var(--glass);
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
+      .glass {
+        background: var(--glass);
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
 
-            border: 1px solid var(--glass-border);
+        border: 1px solid var(--glass-border);
 
-            box-shadow:
-                var(--glass-shadow),
-                inset 0 1px 0 rgba(255,255,255,0.7);
-        }
+        box-shadow:
+          var(--glass-shadow),
+          inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      }
 
-        /* =========================================================
+      /* =========================================================
            導覽列
         ========================================================= */
 
-        .navbar {
-            transition:
-                transform 0.5s ease,
-                opacity 0.5s ease;
-        }
+      .navbar {
+        transition:
+          transform 0.5s ease,
+          opacity 0.5s ease;
+      }
 
-        .navbar.scrolled {
-            transform: translateY(-4px);
-        }
+      .navbar.scrolled {
+        transform: translateY(-4px);
+      }
 
-        /* =========================================================
+      /* =========================================================
            報名主卡片
         ========================================================= */
 
-        .registration-shell {
-            position: relative;
+      .registration-shell {
+        position: relative;
 
-            width: min(1100px, 100%);
+        width: min(1100px, 100%);
 
-            min-height: 650px;
+        min-height: 650px;
 
-            border-radius: 34px;
+        border-radius: 34px;
 
-            overflow: hidden;
+        overflow: hidden;
 
-            isolation: isolate;
-        }
+        isolation: isolate;
+      }
 
-        /* 左側斜向冰晶背景 */
+      /* 左側斜向冰晶背景 */
 
-        .visual-panel {
-            position: absolute;
+      .visual-panel {
+        position: absolute;
 
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: auto;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: auto;
 
-            width: 48%;
+        width: 48%;
 
-            overflow: hidden;
+        overflow: hidden;
 
-            background:
-                linear-gradient(
-                    145deg,
-                    #082f49 0%,
-                    #075985 42%,
-                    #0284c7 100%
-                );
+        background: linear-gradient(
+          145deg,
+          #082f49 0%,
+          #075985 42%,
+          #0284c7 100%
+        );
 
-            transition:
-                transform 0.8s cubic-bezier(.22,.61,.36,1);
-        }
+        transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
 
-        .visual-panel::before {
-            content: "";
+      .visual-panel::before {
+        content: "";
 
-            position: absolute;
+        position: absolute;
 
-            width: 900px;
-            height: 900px;
+        width: 900px;
+        height: 900px;
 
-            left: -430px;
-            top: -150px;
+        left: -430px;
+        top: -150px;
 
-            transform: rotate(32deg);
+        transform: rotate(32deg);
 
-            background:
-                linear-gradient(
-                    135deg,
-                    rgba(255,255,255,0.18),
-                    rgba(255,255,255,0.015)
-                );
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.18),
+          rgba(255, 255, 255, 0.015)
+        );
 
-            border:
-                1px solid rgba(255,255,255,0.2);
+        border: 1px solid rgba(255, 255, 255, 0.2);
 
-            box-shadow:
-                inset 0 0 100px rgba(255,255,255,0.08);
-        }
+        box-shadow: inset 0 0 100px rgba(255, 255, 255, 0.08);
+      }
 
-        .visual-panel::after {
-            content: "";
+      .visual-panel::after {
+        content: "";
 
-            position: absolute;
+        position: absolute;
 
-            width: 500px;
-            height: 500px;
+        width: 500px;
+        height: 500px;
 
-            right: -320px;
-            bottom: -300px;
+        right: -320px;
+        bottom: -300px;
 
-            border-radius: 50%;
+        border-radius: 50%;
 
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(56,189,248,0.7),
-                    transparent 65%
-                );
+        background: radial-gradient(
+          circle,
+          rgba(56, 189, 248, 0.7),
+          transparent 65%
+        );
 
-            filter: blur(30px);
-        }
+        filter: blur(30px);
+      }
 
-        /* 冰晶線 */
+      /* 冰晶線 */
 
-        .ice-line {
-            position: absolute;
+      .ice-line {
+        position: absolute;
 
-            width: 150%;
-            height: 1px;
+        width: 150%;
+        height: 1px;
 
-            left: -20%;
+        left: -20%;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(255,255,255,0.35),
-                    transparent
-                );
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
 
-            transform: rotate(-42deg);
-        }
+        transform: rotate(-42deg);
+      }
 
-        .ice-line:nth-child(1) {
-            top: 25%;
-        }
+      .ice-line:nth-child(1) {
+        top: 25%;
+      }
 
-        .ice-line:nth-child(2) {
-            top: 48%;
-        }
+      .ice-line:nth-child(2) {
+        top: 48%;
+      }
 
-        .ice-line:nth-child(3) {
-            top: 71%;
-        }
+      .ice-line:nth-child(3) {
+        top: 71%;
+      }
 
-        /* 左側內容 */
+      /* 左側內容 */
 
-        .visual-content {
-            position: relative;
+      .visual-content {
+        position: relative;
 
-            z-index: 8;
+        z-index: 8;
 
-            height: 100%;
+        height: 100%;
 
-            display: flex;
-            flex-direction: column;
+        display: flex;
+        flex-direction: column;
 
-            justify-content: center;
-            align-items: flex-end;
-            text-align: right;
+        justify-content: center;
+        align-items: flex-end;
+        text-align: right;
 
-            padding: 60px;
+        padding: 60px;
 
-            color: white;
-        }
+        color: white;
+      }
 
-        .logo-frame {
-            width: 76px;
-            height: 76px;
+      .logo-frame {
+        width: 76px;
+        height: 76px;
 
-            padding: 5px;
+        padding: 5px;
 
-            border-radius: 22px;
+        border-radius: 22px;
 
-            background:
-                rgba(255,255,255,0.18);
+        background: rgba(255, 255, 255, 0.18);
 
-            border:
-                1px solid rgba(255,255,255,0.35);
+        border: 1px solid rgba(255, 255, 255, 0.35);
 
-            backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
 
-            box-shadow:
-                0 15px 40px rgba(0,0,0,0.18);
-        }
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+      }
 
-        .logo-frame img {
-            width: 100%;
-            height: 100%;
+      .logo-frame img {
+        width: 100%;
+        height: 100%;
 
-            border-radius: 17px;
+        border-radius: 17px;
 
-            object-fit: cover;
-        }
+        object-fit: cover;
+      }
 
-        .event-title {
-            font-family: "Syncopate", sans-serif;
+      .event-title {
+        font-family: "Syncopate", sans-serif;
 
-            font-size: clamp(20px, 2.5vw, 32px);
+        font-size: clamp(20px, 2.5vw, 32px);
 
-            letter-spacing: 0.08em;
+        letter-spacing: 0.08em;
 
-            line-height: 1.35;
-            text-align: right;
-        }
+        line-height: 1.35;
+        text-align: right;
+      }
 
-        .event-subtitle {
-            color: rgba(255,255,255,0.7);
+      .event-subtitle {
+        color: rgba(255, 255, 255, 0.7);
 
-            font-size: 12px;
+        font-size: 12px;
 
-            letter-spacing: 0.25em;
+        letter-spacing: 0.25em;
 
-            text-transform: uppercase;
-        }
+        text-transform: uppercase;
+      }
 
-        .visual-divider {
-            width: 60px;
-            height: 2px;
+      .visual-divider {
+        width: 60px;
+        height: 2px;
 
-            margin: 28px 0 28px auto;
+        margin: 28px 0 28px auto;
 
-            background:
-                linear-gradient(
-                    90deg,
-                    #7cc8fc,
-                    transparent
-                );
-        }
+        background: linear-gradient(90deg, #7cc8fc, transparent);
+      }
 
-        .visual-description {
-            color: rgba(255,255,255,0.75);
+      .visual-description {
+        color: rgba(255, 255, 255, 0.75);
 
-            line-height: 1.9;
+        line-height: 1.9;
 
-            font-size: 14px;
-            text-align: right;
-            max-width: 24rem;
-        }
+        font-size: 14px;
+        text-align: right;
+        max-width: 24rem;
+      }
 
-        /* =========================================================
+      /* =========================================================
            表單區
         ========================================================= */
 
-        .form-panel {
-            position: absolute;
+      .form-panel {
+        position: absolute;
 
-            top: 0;
-            left: 0;
-            right: auto;
+        top: 0;
+        left: 0;
+        right: auto;
 
-            width: 58%;
-            height: 100%;
+        width: 58%;
+        height: 100%;
 
-            padding: 58px;
+        padding: 58px;
 
-            background:
-                rgba(255,255,255,0.82);
+        background: rgba(255, 255, 255, 0.82);
 
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
 
-            border-right:
-                1px solid rgba(255,255,255,0.7);
+        border-right: 1px solid rgba(255, 255, 255, 0.7);
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-            z-index: 4;
+        z-index: 4;
 
-            transition:
-                transform 0.8s cubic-bezier(.22,.61,.36,1);
-        }
+        transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
 
-        /* =========================================================
+      /* =========================================================
            表單元素
         ========================================================= */
 
-        .field {
-            position: relative;
-        }
+      .field {
+        position: relative;
+      }
 
-        .field label {
-            display: block;
+      .field label {
+        display: block;
 
-            margin-bottom: 9px;
+        margin-bottom: 9px;
 
-            font-size: 12px;
+        font-size: 12px;
 
-            font-weight: 800;
+        font-weight: 800;
 
-            letter-spacing: 0.12em;
+        letter-spacing: 0.12em;
 
-            color: var(--polar-900);
-        }
+        color: var(--polar-900);
+      }
 
-        .field input,
-        .field textarea {
-            width: 100%;
+      .field input,
+      .field textarea {
+        width: 100%;
 
-            border:
-                1px solid rgba(186,224,253,0.9);
+        border: 1px solid rgba(186, 224, 253, 0.9);
 
-            background:
-                rgba(255,255,255,0.72);
+        background: rgba(255, 255, 255, 0.72);
 
-            color: var(--polar-950);
+        color: var(--polar-950);
 
-            border-radius: 15px;
+        border-radius: 15px;
 
-            padding: 14px 16px;
+        padding: 14px 16px;
 
-            outline: none;
+        outline: none;
 
-            font-family: inherit;
+        font-family: inherit;
 
-            transition:
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease,
+          background 0.25s ease,
+          transform 0.25s ease;
+      }
 
-        .field textarea {
-            resize: vertical;
-            min-height: 105px;
-        }
+      .field textarea {
+        resize: vertical;
+        min-height: 105px;
+      }
 
-        .field input:focus,
-        .field textarea:focus {
-            background: white;
+      .field input:focus,
+      .field textarea:focus {
+        background: white;
 
-            border-color:
-                var(--polar-400);
+        border-color: var(--polar-400);
 
-            box-shadow:
-                0 0 0 4px rgba(56,189,248,0.12),
-                0 10px 30px rgba(14,165,233,0.08);
+        box-shadow:
+          0 0 0 4px rgba(56, 189, 248, 0.12),
+          0 10px 30px rgba(14, 165, 233, 0.08);
 
-            transform: translateY(-1px);
-        }
+        transform: translateY(-1px);
+      }
 
-        .field input::placeholder,
-        .field textarea::placeholder {
-            color: #94a3b8;
-        }
+      .field input::placeholder,
+      .field textarea::placeholder {
+        color: #94a3b8;
+      }
 
-        /* =========================================================
+      /* =========================================================
            Submit
         ========================================================= */
 
-        .submit-button {
-            position: relative;
+      .submit-button {
+        position: relative;
 
-            overflow: hidden;
+        overflow: hidden;
 
-            width: 100%;
+        width: 100%;
 
-            padding: 15px;
+        padding: 15px;
 
-            border-radius: 15px;
+        border-radius: 15px;
 
-            border: 0;
+        border: 0;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #082f49,
-                    #075985
-                );
+        background: linear-gradient(135deg, #082f49, #075985);
 
-            color: white;
+        color: white;
 
-            font-weight: 800;
+        font-weight: 800;
 
-            letter-spacing: 0.15em;
+        letter-spacing: 0.15em;
 
-            cursor: pointer;
+        cursor: pointer;
 
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-        }
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
 
-        .submit-button::before {
-            content: "";
+      .submit-button::before {
+        content: "";
 
-            position: absolute;
+        position: absolute;
 
-            top: 0;
-            left: -120%;
+        top: 0;
+        left: -120%;
 
-            width: 100%;
-            height: 100%;
+        width: 100%;
+        height: 100%;
 
-            background:
-                linear-gradient(
-                    110deg,
-                    transparent,
-                    rgba(255,255,255,0.25),
-                    transparent
-                );
+        background: linear-gradient(
+          110deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
 
-            transition: left 0.7s ease;
-        }
+        transition: left 0.7s ease;
+      }
 
-        .submit-button:hover {
-            transform: translateY(-2px);
+      .submit-button:hover {
+        transform: translateY(-2px);
 
-            box-shadow:
-                0 15px 35px rgba(8,47,73,0.25);
-        }
+        box-shadow: 0 15px 35px rgba(8, 47, 73, 0.25);
+      }
 
-        .submit-button:hover::before {
-            left: 120%;
-        }
+      .submit-button:hover::before {
+        left: 120%;
+      }
 
-        .submit-button:active {
-            transform: scale(0.985);
-        }
+      .submit-button:active {
+        transform: scale(0.985);
+      }
 
-        .submit-button:disabled {
-            opacity: 0.65;
-            cursor: wait;
-            transform: none;
-        }
+      .submit-button:disabled {
+        opacity: 0.65;
+        cursor: wait;
+        transform: none;
+      }
 
-        /* =========================================================
+      /* =========================================================
            小提示
         ========================================================= */
 
-        .helper-link {
-            color: var(--polar-600);
+      .helper-link {
+        color: var(--polar-600);
 
-            font-weight: 700;
+        font-weight: 700;
 
-            text-decoration: none;
+        text-decoration: none;
 
-            transition:
-                color 0.2s ease;
-        }
+        transition: color 0.2s ease;
+      }
 
-        .helper-link:hover {
-            color: var(--polar-900);
-        }
+      .helper-link:hover {
+        color: var(--polar-900);
+      }
 
-        /* =========================================================
+      /* =========================================================
            Modal
         ========================================================= */
 
-        #confirm-modal {
-            opacity: 0;
+      #confirm-modal {
+        opacity: 0;
 
-            pointer-events: none;
+        pointer-events: none;
 
-            transition:
-                opacity 0.35s ease;
-        }
+        transition: opacity 0.35s ease;
+      }
 
-        #confirm-modal.modal-enter {
-            opacity: 1;
+      #confirm-modal.modal-enter {
+        opacity: 1;
 
-            pointer-events: auto;
-        }
+        pointer-events: auto;
+      }
 
-        .modal-box {
-            transform:
-                translateY(25px)
-                scale(0.96);
+      .modal-box {
+        transform: translateY(25px) scale(0.96);
 
-            opacity: 0;
+        opacity: 0;
 
-            transition:
-                transform 0.45s cubic-bezier(.22,.61,.36,1),
-                opacity 0.35s ease;
-        }
+        transition:
+          transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1),
+          opacity 0.35s ease;
+      }
 
-        #confirm-modal.modal-enter .modal-box {
-            transform:
-                translateY(0)
-                scale(1);
+      #confirm-modal.modal-enter .modal-box {
+        transform: translateY(0) scale(1);
 
-            opacity: 1;
-        }
+        opacity: 1;
+      }
 
-        /* =========================================================
+      /* =========================================================
            Responsive
         ========================================================= */
 
-        @media (max-width: 900px) {
+      @media (max-width: 900px) {
+        .registration-shell {
+          min-height: auto;
 
-            .registration-shell {
-                min-height: auto;
-
-                display: flex;
-                flex-direction: column;
-            }
-
-            .visual-panel {
-                position: relative;
-
-                width: 100%;
-
-                min-height: 300px;
-            }
-
-            .visual-content {
-                padding: 42px;
-            }
-
-            .form-panel {
-                position: relative;
-
-                width: 100%;
-
-                padding: 42px;
-            }
+          display: flex;
+          flex-direction: column;
         }
 
-        @media (max-width: 640px) {
+        .visual-panel {
+          position: relative;
 
-            .visual-panel {
-                min-height: 260px;
-            }
+          width: 100%;
 
-            .visual-content {
-                padding: 32px;
-            }
-
-            .form-panel {
-                padding: 30px 22px;
-            }
-
-            .registration-shell {
-                border-radius: 26px;
-            }
-
-            .logo-frame {
-                width: 60px;
-                height: 60px;
-                border-radius: 17px;
-            }
-
-            .logo-frame img {
-                border-radius: 13px;
-            }
+          min-height: 300px;
         }
 
+        .visual-content {
+          padding: 42px;
+        }
+
+        .form-panel {
+          position: relative;
+
+          width: 100%;
+
+          padding: 42px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .visual-panel {
+          min-height: 260px;
+        }
+
+        .visual-content {
+          padding: 32px;
+        }
+
+        .form-panel {
+          padding: 30px 22px;
+        }
+
+        .registration-shell {
+          border-radius: 26px;
+        }
+
+        .logo-frame {
+          width: 60px;
+          height: 60px;
+          border-radius: 17px;
+        }
+
+        .logo-frame img {
+          border-radius: 13px;
+        }
+      }
     </style>
-</head>
+  </head>
 
-
-<body class="antialiased">
-
+  <body class="antialiased">
     <!-- =========================================================
          背景
     ========================================================= -->
 
     <div class="page-background">
+      <div class="aurora aurora-1"></div>
+      <div class="aurora aurora-2"></div>
 
-        <div class="aurora aurora-1"></div>
-        <div class="aurora aurora-2"></div>
-
-        <div class="snow" style="left:8%;animation-duration:13s;animation-delay:-3s;"></div>
-        <div class="snow" style="left:18%;animation-duration:17s;animation-delay:-9s;"></div>
-        <div class="snow" style="left:31%;animation-duration:12s;animation-delay:-5s;"></div>
-        <div class="snow" style="left:47%;animation-duration:20s;animation-delay:-12s;"></div>
-        <div class="snow" style="left:61%;animation-duration:15s;animation-delay:-2s;"></div>
-        <div class="snow" style="left:76%;animation-duration:18s;animation-delay:-7s;"></div>
-        <div class="snow" style="left:91%;animation-duration:14s;animation-delay:-10s;"></div>
-
+      <div
+        class="snow"
+        style="left: 8%; animation-duration: 13s; animation-delay: -3s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 18%; animation-duration: 17s; animation-delay: -9s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 31%; animation-duration: 12s; animation-delay: -5s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 47%; animation-duration: 20s; animation-delay: -12s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 61%; animation-duration: 15s; animation-delay: -2s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 76%; animation-duration: 18s; animation-delay: -7s"
+      ></div>
+      <div
+        class="snow"
+        style="left: 91%; animation-duration: 14s; animation-delay: -10s"
+      ></div>
     </div>
-
 
     <!-- =========================================================
          導覽列
     ========================================================= -->
 
     <header
-        id="main-header"
-        class="
-            navbar
-            fixed
-            w-full
-            z-50
-            top-0
-            py-3
-            px-4
-            md:px-6
-        "
+      id="main-header"
+      class="navbar fixed w-full z-50 top-0 py-3 px-4 md:px-6"
     >
-
-        <div
-            class="
-                max-w-7xl
-                mx-auto
-                px-5
-                md:px-6
-                py-3
-                flex
-                justify-between
-                items-center
-                glass
-                rounded-2xl
-            "
+      <div
+        class="max-w-7xl mx-auto px-5 md:px-6 py-3 flex justify-between items-center glass rounded-2xl"
+      >
+        <a
+          href="../index.html"
+          class="flex items-center gap-3 text-polar-950 font-bold tracking-widest text-lg"
         >
+          <img
+            src="../../assets/logo.jpg"
+            alt="2027 Winter UHC Logo"
+            class="w-10 h-10 rounded-xl object-cover border border-white/70 shadow-sm"
+          />
 
-            <a
-                href="../index.html"
-                class="
-                    flex
-                    items-center
-                    gap-3
-                    text-polar-950
-                    font-bold
-                    tracking-widest
-                    text-lg
-                "
-            >
+          <span class="font-display tracking-wider hidden sm:block">
+            WINTER UHC
+          </span>
+        </a>
 
-                <img
-                    src="../../assets/logo.jpg"
-                    alt="2027 Winter UHC Logo"
-                    class="
-                        w-10
-                        h-10
-                        rounded-xl
-                        object-cover
-                        border
-                        border-white/70
-                        shadow-sm
-                    "
-                >
-
-                <span
-                    class="
-                        font-display
-                        tracking-wider
-                        hidden
-                        sm:block
-                    "
-                >
-                    WINTER UHC
-                </span>
-
-            </a>
-
-
-            <nav
-                class="
-                    hidden
-                    md:flex
-                    items-center
-                    gap-8
-                    text-sm
-                    font-medium
-                    tracking-wider
-                    text-polar-900
-                "
-            >
-
-                <a href="../" class="hover:text-polar-500 transition-colors">
-                    首頁
-                </a>
-
-                <a href="../encyclopedia" class="hover:text-polar-500 transition-colors">
-                    系統百科
-                </a>
-
-                <a href="../database" class="hover:text-polar-500 transition-colors">
-                    礦物裝備
-                </a>
-
-                <a href="../rules" class="hover:text-polar-500 transition-colors">
-                    賽事規則
-                </a>
-
-                <a href="../progress" class="hover:text-polar-500 transition-colors">
-                    開發進度
-                </a>
-
-            </nav>
-
-
-            <button
-                id="mobile-menu-btn"
-                class="
-                    md:hidden
-                    text-polar-950
-                    p-2
-                "
-                aria-label="開啟選單"
-            >
-                <i data-lucide="menu"></i>
-            </button>
-
-        </div>
-
-
-        <!-- Mobile menu -->
-
-        <div
-            id="mobile-menu"
-            class="
-                hidden
-                md:hidden
-                max-w-7xl
-                mx-auto
-                mt-2
-                glass
-                rounded-2xl
-                p-6
-                flex
-                flex-col
-                gap-4
-                text-polar-900
-            "
+        <nav
+          class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wider text-polar-900"
         >
+          <a href="../" class="hover:text-polar-500 transition-colors">
+            首頁
+          </a>
 
-            <a href="../index.html" class="mobile-link">
-                首頁
-            </a>
+          <a
+            href="../encyclopedia"
+            class="hover:text-polar-500 transition-colors"
+          >
+            系統百科
+          </a>
 
-            <a href="../encyclopedia" class="mobile-link">
-                系統百科
-            </a>
+          <a href="../database" class="hover:text-polar-500 transition-colors">
+            礦物裝備
+          </a>
 
-            <a href="../database" class="mobile-link">
-                礦物裝備
-            </a>
+          <a href="../rules" class="hover:text-polar-500 transition-colors">
+            賽事規則
+          </a>
 
-            <a href="../rules" class="mobile-link">
-                賽事規則
-            </a>
+          <a href="../progress" class="hover:text-polar-500 transition-colors">
+            開發進度
+          </a>
+        </nav>
 
-            <a href="../progress" class="mobile-link">
-                開發進度
-            </a>
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-polar-950 p-2"
+          aria-label="開啟選單"
+        >
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
 
-            <a
-                href="../register"
-                class="mobile-link text-polar-500 font-bold"
-            >
-                立即報名
-            </a>
+      <!-- Mobile menu -->
 
-        </div>
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden max-w-7xl mx-auto mt-2 glass rounded-2xl p-6 flex flex-col gap-4 text-polar-900"
+      >
+        <a href="../index.html" class="mobile-link"> 首頁 </a>
 
+        <a href="../encyclopedia" class="mobile-link"> 系統百科 </a>
+
+        <a href="../database" class="mobile-link"> 礦物裝備 </a>
+
+        <a href="../rules" class="mobile-link"> 賽事規則 </a>
+
+        <a href="../progress" class="mobile-link"> 開發進度 </a>
+
+        <a href="../register" class="mobile-link text-polar-500 font-bold">
+          立即報名
+        </a>
+      </div>
     </header>
-
 
     <!-- =========================================================
          Main
     ========================================================= -->
 
     <main
-        class="
-            pt-28
-            md:pt-32
-            pb-20
-            px-4
-            md:px-6
-            min-h-screen
-            flex
-            items-center
-            justify-center
-        "
+      class="pt-28 md:pt-32 pb-20 px-4 md:px-6 min-h-screen flex items-center justify-center"
     >
-
-        <div class="registration-shell glass">
-
-
-            <!-- =================================================
+      <div class="registration-shell glass">
+        <!-- =================================================
                  左側表單
             ================================================= -->
 
-            <section class="form-panel">
+        <section class="form-panel">
+          <div class="max-w-xl w-full mx-auto">
+            <div class="mb-8">
+              <div
+                class="text-polar-600 font-mono text-xs uppercase tracking-[0.25em] mb-2"
+              >
+                Registration
+              </div>
 
-                <div class="max-w-xl w-full mx-auto">
+              <h2
+                class="text-3xl md:text-4xl font-black text-polar-950 tracking-wide"
+              >
+                參賽隊伍註冊
+              </h2>
 
+              <p class="mt-3 text-sm text-slate-500 leading-relaxed">
+                填寫以下資料後，我們會先再次確認資料庫狀態。
+              </p>
+            </div>
 
-                    <div class="mb-8">
-
-                        <div
-                            class="
-                                text-polar-600
-                                font-mono
-                                text-xs
-                                uppercase
-                                tracking-[0.25em]
-                                mb-2
-                            "
-                        >
-                            Registration
-                        </div>
-
-
-                        <h2
-                            class="
-                                text-3xl
-                                md:text-4xl
-                                font-black
-                                text-polar-950
-                                tracking-wide
-                            "
-                        >
-                            參賽隊伍註冊
-                        </h2>
-
-
-                        <p
-                            class="
-                                mt-3
-                                text-sm
-                                text-slate-500
-                                leading-relaxed
-                            "
-                        >
-                            填寫以下資料後，我們會先再次確認資料庫狀態。
-                        </p>
-
-                    </div>
-
-
-                    <!-- =========================================
+            <!-- =========================================
                          Form
                     ========================================== -->
 
-                    <form
-                        id="registration-form"
-                        class="space-y-5"
-                    >
+            <form id="registration-form" class="space-y-5">
+              <!-- Row -->
 
-                        <!-- Row -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <!-- Team -->
 
-                        <div
-                            class="
-                                grid
-                                grid-cols-1
-                                md:grid-cols-2
-                                gap-5
-                            "
-                        >
+                <div class="field">
+                  <div class="flex justify-between items-end gap-2 mb-2">
+                    <label> 隊伍名稱 </label>
 
-                            <!-- Team -->
+                    <a href="#" class="helper-link text-xs"> 已經創建隊伍? </a>
+                  </div>
 
-                            <div class="field">
-
-                                <div
-                                    class="
-                                        flex
-                                        justify-between
-                                        items-end
-                                        gap-2
-                                        mb-2
-                                    "
-                                >
-
-                                    <label>
-                                        隊伍名稱
-                                    </label>
-
-                                    <a
-                                        href="#"
-                                        class="helper-link text-xs"
-                                    >
-                                        已經創建隊伍?
-                                    </a>
-
-                                </div>
-
-
-                                <input
-                                    type="text"
-                                    id="team_name"
-                                    placeholder="取一個響亮的名字!!"
-                                >
-
-                            </div>
-
-
-                            <!-- Email -->
-
-                            <div class="field">
-
-                                <label>
-                                    隊伍聯絡 Email 
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    required
-                                    placeholder="我們只會用來聯絡您的隊伍，絕不外洩"
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- Submit -->
-
-                        <button
-                            type="button"
-                            id="btn-pre-submit"
-                            onclick="handlePreSubmit()"
-                            class="submit-button"
-                        >
-
-                            <span
-                                class="
-                                    flex
-                                    items-center
-                                    justify-center
-                                    gap-2
-                                "
-                            >
-
-                                <i
-                                    data-lucide="send"
-                                    class="w-4 h-4"
-                                ></i>
-
-                                提交報名申請
-
-                            </span>
-
-                        </button>
-
-
-                        <!-- Feedback -->
-
-                        <p
-                            id="form-feedback"
-                            class="
-                                hidden
-                                text-center
-                                text-sm
-                                font-bold
-                                py-3
-                                rounded-xl
-                            "
-                        ></p>
-
-
-                        <div
-                            class="
-                                flex
-                                items-center
-                                justify-center
-                                gap-2
-                                text-xs
-                                text-slate-400
-                                pt-2
-                            "
-                        >
-
-                            <i
-                                data-lucide="shield-check"
-                                class="w-4 h-4"
-                            ></i>
-
-                            提交前仍可再次確認資料
-
-                        </div>
-
-                    </form>
-
+                  <input
+                    type="text"
+                    id="team_name"
+                    placeholder="取一個響亮的名字!!"
+                  />
                 </div>
 
-            </section>
+                <!-- Email -->
 
+                <div class="field">
+                  <label> 隊伍聯絡 Email </label>
 
-            <!-- =================================================
+                  <input
+                    type="email"
+                    id="email"
+                    required
+                    placeholder="我們只會用來聯絡您的隊伍，絕不外洩"
+                  />
+                </div>
+              </div>
+
+              <!-- Submit -->
+
+              <button
+                type="button"
+                id="btn-pre-submit"
+                onclick="handlePreSubmit()"
+                class="submit-button"
+              >
+                <span class="flex items-center justify-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+
+                  提交報名申請
+                </span>
+              </button>
+
+              <!-- Feedback -->
+
+              <p
+                id="form-feedback"
+                class="hidden text-center text-sm font-bold py-3 rounded-xl"
+              ></p>
+
+              <div
+                class="flex items-center justify-center gap-2 text-xs text-slate-400 pt-2"
+              >
+                <i data-lucide="shield-check" class="w-4 h-4"></i>
+
+                提交前仍可再次確認資料
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- =================================================
                  右側視覺區
             ================================================= -->
 
-            <section class="visual-panel">
+        <section class="visual-panel">
+          <div class="ice-line"></div>
+          <div class="ice-line"></div>
+          <div class="ice-line"></div>
 
-                <div class="ice-line"></div>
-                <div class="ice-line"></div>
-                <div class="ice-line"></div>
+          <div class="visual-content">
+            <div class="logo-frame mb-7">
+              <img src="../../assets/logo.jpg" alt="Winter UHC Logo" />
+            </div>
 
+            <div class="event-subtitle mb-3">2027 Winter Championship</div>
 
-                <div class="visual-content">
+            <h1 class="event-title">
+              WINTER<br />
+              UHC
+            </h1>
 
-                    <div class="logo-frame mb-7">
+            <div class="visual-divider"></div>
 
-                        <img
-                            src="../../assets/logo.jpg"
-                            alt="Winter UHC Logo"
-                        >
+            <p class="visual-description max-w-sm">
+              極寒、生存、競爭。
 
-                    </div>
+              <br />
 
+              在沒有自然回血的極地世界中，
+              你的每一個決定都可能成為最後一個決定。
 
-                    <div class="event-subtitle mb-3">
-                        2027 Winter Championship
-                    </div>
+              <br /><br />
 
+              現在，加入 2027 Winter UHC。
+            </p>
 
-                    <h1 class="event-title">
-                        WINTER<br>
-                        UHC
-                    </h1>
+            <div
+              class="mt-8 flex items-center justify-end gap-3 text-xs tracking-widest text-white/60"
+            >
+              <i data-lucide="snowflake" class="w-4 h-4"></i>
 
-
-                    <div class="visual-divider"></div>
-
-
-                    <p class="visual-description max-w-sm">
-
-                        極寒、生存、競爭。
-
-                        <br>
-
-                        在沒有自然回血的極地世界中，
-                        你的每一個決定都可能成為最後一個決定。
-
-                        <br><br>
-
-                        現在，加入 2027 Winter UHC。
-
-                    </p>
-
-
-                    <div
-                        class="
-                            mt-8
-                            flex
-                            items-center
-                            justify-end
-                            gap-3
-                            text-xs
-                            tracking-widest
-                            text-white/60
-                        "
-                    >
-
-                        <i
-                            data-lucide="snowflake"
-                            class="w-4 h-4"
-                        ></i>
-
-                        SURVIVE THE COLD
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-
-        </div>
-
+              SURVIVE THE COLD
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
-
 
     <!-- =========================================================
          Footer
     ========================================================= -->
 
-    <footer
-        class="
-            border-t
-            border-polar-200
-            bg-white/40
-            py-10
-            px-6
-        "
-    >
+    <footer class="border-t border-polar-200 bg-white/40 py-10 px-6">
+      <div
+        class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5"
+      >
+        <div class="flex items-center gap-3 font-bold tracking-widest">
+          <i data-lucide="snowflake" class="text-polar-500"></i>
 
-        <div
-            class="
-                max-w-7xl
-                mx-auto
-                flex
-                flex-col
-                md:flex-row
-                justify-between
-                items-center
-                gap-5
-            "
-        >
-
-            <div
-                class="
-                    flex
-                    items-center
-                    gap-3
-                    font-bold
-                    tracking-widest
-                "
-            >
-
-                <i
-                    data-lucide="snowflake"
-                    class="text-polar-500"
-                ></i>
-
-                <span class="font-display">
-                    WINTER UHC 2027
-                </span>
-
-            </div>
-
-
-            <p class="text-sm text-polar-600 text-center">
-                © 2027 Winter UHC Championship.
-                非官方社群賽事。
-            </p>
-
+          <span class="font-display"> WINTER UHC 2027 </span>
         </div>
 
+        <p class="text-sm text-polar-600 text-center">
+          © 2027 Winter UHC Championship. 非官方社群賽事。
+        </p>
+      </div>
     </footer>
-
 
     <!-- =========================================================
          Confirm Modal
     ========================================================= -->
 
     <div
-        id="confirm-modal"
-        class="
-            fixed
-            inset-0
-            z-[100]
-            flex
-            items-center
-            justify-center
-            px-4
-        "
+      id="confirm-modal"
+      class="fixed inset-0 z-[100] flex items-center justify-center px-4"
     >
+      <!-- backdrop -->
 
-        <!-- backdrop -->
+      <div
+        class="absolute inset-0 bg-polar-950/40 backdrop-blur-md"
+        onclick="closeModal()"
+      ></div>
 
-        <div
-            class="
-                absolute
-                inset-0
-                bg-polar-950/40
-                backdrop-blur-md
-            "
-            onclick="closeModal()"
-        ></div>
+      <!-- modal -->
 
+      <div
+        class="modal-box glass rounded-3xl p-6 md:p-8 w-full max-w-md relative z-10"
+      >
+        <div class="flex items-center gap-3 mb-6">
+          <div
+            class="w-11 h-11 rounded-xl bg-polar-100 flex items-center justify-center"
+          >
+            <i data-lucide="check-circle" class="text-polar-600"></i>
+          </div>
 
-        <!-- modal -->
-
-        <div
-            class="
-                modal-box
-                glass
-                rounded-3xl
-                p-6
-                md:p-8
-                w-full
-                max-w-md
-                relative
-                z-10
-            "
-        >
-
-            <div
-                class="
-                    flex
-                    items-center
-                    gap-3
-                    mb-6
-                "
-            >
-
-                <div
-                    class="
-                        w-11
-                        h-11
-                        rounded-xl
-                        bg-polar-100
-                        flex
-                        items-center
-                        justify-center
-                    "
-                >
-
-                    <i
-                        data-lucide="check-circle"
-                        class="text-polar-600"
-                    ></i>
-
-                </div>
-
-
-                <div>
-
-                    <div
-                        class="
-                            text-xs
-                            tracking-widest
-                            text-polar-500
-                            font-bold
-                        "
-                    >
-                        FINAL CHECK
-                    </div>
-
-                    <h2
-                        class="
-                            text-xl
-                            font-black
-                            text-polar-950
-                        "
-                    >
-                        請確認資料
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="modal-details"
-                class="
-                    space-y-3
-                    text-polar-900
-                    text-sm
-                    mb-7
-                "
-            ></div>
-
-
-            <div class="flex gap-3">
-
-                <button
-                    onclick="closeModal()"
-                    class="
-                        flex-1
-                        py-3
-                        bg-white/70
-                        border
-                        border-polar-200
-                        text-polar-800
-                        rounded-xl
-                        hover:bg-white
-                        transition-all
-                        font-bold
-                    "
-                >
-                    返回修改
-                </button>
-
-
-                <button
-                    onclick="submitToSupabase()"
-                    id="btn-final-submit"
-                    class="
-                        flex-1
-                        py-3
-                        bg-polar-900
-                        text-white
-                        rounded-xl
-                        shadow-lg
-                        hover:bg-polar-800
-                        transition-all
-                        font-bold
-                        flex
-                        items-center
-                        justify-center
-                        gap-2
-                    "
-                >
-                    確認送出
-                </button>
-
-            </div>
-
+          <div id="modal-title"></div>
         </div>
 
-    </div>
+        <div
+          id="modal-details"
+          class="space-y-3 text-polar-900 text-sm mb-7"
+        ></div>
 
+        <div class="flex gap-3">
+          <button
+            onclick="closeModal()"
+            class="flex-1 py-3 bg-white/70 border border-polar-200 text-polar-800 rounded-xl hover:bg-white transition-all font-bold"
+            id="cancel"
+          ></button>
+
+          <button
+            onclick="submitToSupabase()"
+            id="btn-final-submit"
+            class="flex-1 py-3 bg-polar-900 text-white rounded-xl shadow-lg hover:bg-polar-800 transition-all font-bold flex items-center justify-center gap-2"
+          >
+            確認送出
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- =========================================================
          JavaScript
     ========================================================= -->
+    <script type="module">
+      import * as handle from "../../assets/handle.js";
 
-    <script>
-
-        /* =========================================================
+      const supabaseUrl = "https://pxjfnewychisfnxjmcob.supabase.co";
+      const supabaseKey =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
+      const supabaseClient = window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey,
+      );
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          openModal();
+        });
+      /* =========================================================
            DOM 初始化
         ========================================================= */
 
-        document.addEventListener("DOMContentLoaded", () => {
+      document.addEventListener("DOMContentLoaded", () => {
+        lucide.createIcons();
 
-            lucide.createIcons();
+        initMobileMenu();
+        initScrollEffect();
+      });
 
-            initMobileMenu();
-            initScrollEffect();
-
-        });
-
-
-        /* =========================================================
+      /* =========================================================
            Mobile Menu
         ========================================================= */
 
-        function initMobileMenu() {
+      function initMobileMenu() {
+        const mobileBtn = document.getElementById("mobile-menu-btn");
 
-            const mobileBtn =
-                document.getElementById("mobile-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-            const mobileMenu =
-                document.getElementById("mobile-menu");
+        if (!mobileBtn || !mobileMenu) return;
 
+        mobileBtn.addEventListener("click", () => {
+          mobileMenu.classList.toggle("hidden");
+        });
 
-            if (!mobileBtn || !mobileMenu) return;
+        document.querySelectorAll(".mobile-link").forEach((link) => {
+          link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+          });
+        });
 
+        document.addEventListener("click", (event) => {
+          if (
+            !mobileMenu.contains(event.target) &&
+            !mobileBtn.contains(event.target)
+          ) {
+            mobileMenu.classList.add("hidden");
+          }
+        });
+      }
 
-            mobileBtn.addEventListener("click", () => {
-
-                mobileMenu.classList.toggle("hidden");
-
-            });
-
-
-            document
-                .querySelectorAll(".mobile-link")
-                .forEach(link => {
-
-                    link.addEventListener("click", () => {
-
-                        mobileMenu.classList.add("hidden");
-
-                    });
-
-                });
-
-
-            document.addEventListener("click", event => {
-
-                if (
-                    !mobileMenu.contains(event.target) &&
-                    !mobileBtn.contains(event.target)
-                ) {
-
-                    mobileMenu.classList.add("hidden");
-
-                }
-
-            });
-
-        }
-
-
-        /* =========================================================
+      /* =========================================================
            Scroll effect
         ========================================================= */
 
-        function initScrollEffect() {
+      function initScrollEffect() {
+        const header = document.getElementById("main-header");
 
-            const header =
-                document.getElementById("main-header");
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 20) {
+            header.classList.add("scrolled");
+          } else {
+            header.classList.remove("scrolled");
+          }
+        });
+      }
 
+      function openModal() {
+        const modal = document.getElementById("confirm-modal");
+        const joinCode = document.getElementById("join_code").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const playerId = document.getElementById("player_id").value.trim();
+        const playerName = document.getElementById("player_name").value.trim();
+        const motto = document.getElementById("motto").value.trim();
+        document.getElementById("modal-title").innerHTML = `
+          <div class="text-xs tracking-widest text-polar-500 font-bold" >
+            最終確認訊息
+          </div>
 
-            window.addEventListener("scroll", () => {
+          <h2 class="text-xl font-black text-polar-950">
+            請確認資料(提交後若需改變資料請聯絡工作人員)
+          </h2>
+        `;
+        document.getElementById("modal-details").innerHTML = `
+          <p><strong>隊伍加入密碼:</strong> ${joinCode || "無"}</p>
+          <p><strong>Email 信箱:</strong> ${email}</p>
+          <p><strong>Bloxd ID:</strong> ${playerId}</p>
+          <p><strong>參賽顯示名稱:</strong> ${playerName}</p>
+          <p><strong>座右銘:</strong> ${motto}</p>
+        `;
+        document.getElementById("cancel").value = "返回修改";
+        modal.classList.add("modal-enter");
+      }
 
-                if (window.scrollY > 20) {
+      function closeModal() {
+        const modal = document.getElementById("confirm-modal");
+        modal.classList.remove("modal-enter");
+      }
 
-                    header.classList.add("scrolled");
+      function submitToSupabase() {
+        const joinCode = document.getElementById("join_code").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const playerId = document.getElementById("player_id").value.trim();
+        const playerName = document.getElementById("player_name").value.trim();
+        const motto = document.getElementById("motto").value.trim();
 
-                } else {
-
-                    header.classList.remove("scrolled");
-
-                }
-
-            });
-
-        }
-
-
+        supabaseClient
+          .from("players")
+          .insert({
+            join_code: joinCode,
+            email: email,
+            player_id: playerId,
+            player_name: playerName,
+            motto,
+          })
+          .then((response) => {
+            if (response.error) {
+              const text = handle.decode(response.error);
+              document.getElementById("modal-title").innerHTML = `
+                <div class="text-xs tracking-widest text-polar-500 font-bold" >
+                  錯誤:${text.title}
+                </div>
+              `;
+              document.getElementById("modal-details").innerHTML = `
+                <p><strong>錯誤訊息</strong> ${text.message}</p>
+              `;
+              document.getElementById("cancel").value = "返回修改";
+            } else {
+              document.getElementById("modal-title").innerHTML = `
+                <div class="text-xs tracking-widest text-polar-500 font-bold" >
+                  報名成功!!
+                </div>
+              `;
+              document.getElementById("modal-details").innerHTML =
+                "<p>NovaCircuit感謝您報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您確認資料及材質包、詳細說明</p>";
+              document.getElementById("registration-form").reset();
+            }
+            document.getElementById("cancel").value = "返回修改";
+            document.getElementById("btn-final-submit").classList.add("hidden");
+          });
+      }
     </script>
-
-</body>
-
+  </body>
 </html>

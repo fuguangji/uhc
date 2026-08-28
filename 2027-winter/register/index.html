@@ -1097,8 +1097,9 @@
           <button
             onclick="closeModal()"
             class="flex-1 py-3 bg-white/70 border border-polar-200 text-polar-800 rounded-xl hover:bg-white transition-all font-bold"
+            id="cancel"
           >
-            返回修改
+            
           </button>
 
           <button
@@ -1118,7 +1119,7 @@
     <script type="module">
       import * as handle from "../../assets/handle.js";
 
-      const supabaseUrl = "https://pxjfnewychisfnxjmcob.supabase.co/rest/v1/";
+      const supabaseUrl = "https://pxjfnewychisfnxjmcob.supabase.co";
       const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB4amZuZXd5Y2hpc2ZueGptY29iIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODYzNDA3NzEsImV4cCI6MjEwMTkxNjc3MX0.R2liiNhCZwhmgcJ0sUirFk14CLQJ5M95-RfAYguZGZk";
       const supabaseClient = window.supabase.createClient(
         supabaseUrl,
@@ -1211,6 +1212,7 @@
           <p><strong>參賽顯示名稱:</strong> ${playerName}</p>
           <p><strong>座右銘:</strong> ${motto}</p>
         `;
+        document.getElementById("cancel").value = "返回修改";
         modal.classList.add("modal-enter");
       }
 
@@ -1246,15 +1248,17 @@
               document.getElementById("modal-details").innerHTML = `
                 <p><strong>錯誤訊息</strong> ${text.message}</p>
               `;
+              document.getElementById("cancel").value = "返回修改";
             } else {
               document.getElementById("modal-title").innerHTML = `
                 <div class="text-xs tracking-widest text-polar-500 font-bold" >
                   報名成功!!
                 </div>
               `;
-              document.getElementById("modal-details").innerHTML = "<p><strong>成功訊息</strong> 無</p>";
+              document.getElementById("modal-details").innerHTML = "<p>NovaCircuit感謝您報名本次比賽，我們已經收到回覆，正常情況下將會於1週內向您確認資料及材質包、詳細說明</p>";
               document.getElementById("registration-form").reset();
             }
+            document.getElementById("cancel").value = "返回修改";
             document
               .getElementById("btn-final-submit")
               .classList.add("hidden");
