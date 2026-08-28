@@ -1085,13 +1085,7 @@
             <i data-lucide="check-circle" class="text-polar-600"></i>
           </div>
 
-          <div>
-            <div class="text-xs tracking-widest text-polar-500 font-bold">
-              最終確認訊息
-            </div>
-
-            <h2 class="text-xl font-black text-polar-950">請確認資料(提交後若需改變資料請聯絡工作人員)</h2>
-          </div>
+          <div id="modal-title"></div>
         </div>
 
         <div
@@ -1121,29 +1115,31 @@
     <!-- =========================================================
          JavaScript
     ========================================================= -->
-
+    <script type="module">
+      import * as handle from "../../assets/handle.js";
+    </script>
     <script>
+      const supabaseUrl = "https://your-supabase-url.supabase.co";
+      const supabaseKey = "your-supabase-key";
+      const supabaseClient = window.supabase.createClient(
+        supabaseUrl,
+        supabaseKey,
+      );
+      document
+        .getElementById("registration-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          openModal();
+        });
       /* =========================================================
            DOM 初始化
         ========================================================= */
-      import * as handle from "../../assets/handle.js";
+
       document.addEventListener("DOMContentLoaded", () => {
         lucide.createIcons();
 
         initMobileMenu();
         initScrollEffect();
-        const supabaseUrl = "https://your-supabase-url.supabase.co";
-        const supabaseKey = "your-supabase-key";
-        const supabaseClient = window.supabase.createClient(
-          supabaseUrl,
-          supabaseKey,
-        );
-        document
-          .getElementById("registration-form")
-          .addEventListener("submit", (event) => {
-            event.preventDefault();
-            openModal();
-          });
       });
 
       /* =========================================================
@@ -1195,6 +1191,27 @@
 
       function openModal() {
         const modal = document.getElementById("confirm-modal");
+        const joinCode = document.getElementById("join_code").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const playerId = document.getElementById("player_id").value.trim();
+        const playerName = document.getElementById("player_name").value.trim();
+        const motto = document.getElementById("motto").value.trim();
+        document.getElementById("modal-title").innerHTML = `
+          <div class="text-xs tracking-widest text-polar-500 font-bold" >
+            最終確認訊息
+          </div>
+
+          <h2 class="text-xl font-black text-polar-950">
+            請確認資料(提交後若需改變資料請聯絡工作人員)
+          </h2>
+        `;
+        document.getElementById("modal-details").innerHTML = `
+          <p><strong>隊伍加入密碼:</strong> ${joinCode || "無"}</p>
+          <p><strong>Email 信箱:</strong> ${email}</p>
+          <p><strong>Bloxd ID:</strong> ${playerId}</p>
+          <p><strong>參賽顯示名稱:</strong> ${playerName}</p>
+          <p><strong>座右銘:</strong> ${motto}</p>
+        `;
         modal.classList.add("modal-enter");
       }
 
@@ -1222,7 +1239,14 @@
           .then((response) => {
             if (response.error) {
               const text = handle.decode(response.error);
-              alert(text);
+              document.getElementById("modal-title").innerHTML = `
+                <div class="text-xs tracking-widest text-polar-500 font-bold" >
+                  錯誤:${text.title}
+                </div>
+              `;
+              document.getElementById("modal-details").innerHTML = `
+                <p><strong>訊息 ${text.message}</p>
+              `;
             } else {
               alert("報名成功！");
               closeModal();
@@ -1230,7 +1254,7 @@
             }
           });
       }
-
+      
     </script>
   </body>
 </html>
