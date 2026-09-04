@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UHC Data Converter</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+
+    background: #111;
+    color: #eee;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+.description {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+section {
+    background: #1b1b1b;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+textarea {
+    width: 100%;
+    min-height: 320px;
+
+    resize: vertical;
+
+    background: #0b0b0b;
+    color: #eee;
+
+    border: 1px solid #444;
+    border-radius: 8px;
+
+    padding: 12px;
+
+    font-family: monospace;
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+button {
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #4f7cff;
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.output {
+    margin-top: 20px;
+}
+
+.output textarea {
+    min-height: 400px;
+}
+
+.status {
+    margin-top: 15px;
+
+    padding: 12px;
+
+    background: #0b0b0b;
+
+    border-radius: 8px;
+
+    white-space: pre-wrap;
+
+    font-family: monospace;
+
+    line-height: 1.5;
+}
+
+.error {
+    color: #ff6b6b;
+}
+
+.success {
+    color: #6bff95;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1>UHC Data Converter</h1>
+
+<p class="description">
+    將 Supabase 的 <b>players</b> 與 <b>teams</b>
+    JSON 貼入下方，Converter 會自動完成資料關聯、
+    Early Bird 判定與隊伍顏色預載入。
+    <br>
+    最後直接複製產生的 JavaScript 到 Bloxd.io。
+</p>
+
+
+<div class="grid">
+
+
+<!-- ========================================================
+     PLAYERS
+========================================================= -->
+
+<section>
+
+<h2>Players</h2>
+
+<textarea id="playersInput">[
+  {
+    "idx": 0,
+    "id": 101,
+    "player_id": "ExamplePlayer_A",
+    "email": "example-a@example.com",
+    "join_code": "11111111-aaaa-bbbb-cccc-111111111111",
+    "created_at": "2026-09-12 10:30:00+00",
+    "motto": "這是一個虛構的玩家",
+    "player_name": "Example A"
+  },
+  {
+    "idx": 1,
+    "id": 102,
+    "player_id": "ExamplePlayer_B",
+    "email": "example-b@example.com",
+    "join_code": "11111111-aaaa-bbbb-cccc-111111111111",
+    "created_at": "2026-10-20 15:00:00+00",
+    "motto": "第二個虛構玩家",
+    "player_name": "Example B"
+  },
+  {
+    "idx": 2,
+    "id": 103,
+    "player_id": "ExamplePlayer_C",
+    "email": "example-c@example.com",
+    "join_code": "22222222-aaaa-bbbb-cccc-222222222222",
+    "created_at": "2026-12-01 12:00:00+00",
+    "motto": "努力活到最後",
+    "player_name": "Example C"
+  }
+]</textarea>
+
+</section>
+
+
+<!-- ========================================================
+     TEAMS
+========================================================= -->
+
+<section>
+
+<h2>Teams</h2>
+
+<textarea id="teamsInput">[
+  {
+    "idx": 0,
+    "id": 201,
+    "created_at": "2026-09-12 10:00:00+00",
+    "join_code": "11111111-aaaa-bbbb-cccc-111111111111",
+    "team_name": "Example Team Alpha",
+    "contact_email": "team-a@example.com",
+    "team_color": "#C0392B"
+  },
+  {
+    "idx": 1,
+    "id": 202,
+    "created_at": "2026-10-20 14:30:00+00",
+    "join_code": "22222222-aaaa-bbbb-cccc-222222222222",
+    "team_name": "Example Team Beta",
+    "contact_email": "team-b@example.com",
+    "team_color": "#2980B9"
+  }
+]</textarea>
+
+</section>
+
+</div>
+
+
+<button onclick="convert()">
+    轉換
+</button>
+
+
+<!-- ========================================================
+     OUTPUT
+========================================================= -->
+
+<section class="output">
+
+<h2>Runtime Data</h2>
+
+<textarea id="output" readonly></textarea>
+
+<button onclick="copyOutput()">
+    複製輸出
+</button>
+
+<div id="status" class="status">
+尚未轉換。
+</div>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+
+// ============================================================
+// Runtime Array 欄位定義
+// ============================================================
+
+const EARLY_BIRD = 0;
+const TEAM_NAME = 1;
+const PLAYER_NAME = 2;
+const MOTTO = 3;
+const TEAM_COLOR = 4;
+
+
+// ============================================================
+// Early Bird 判定
+//
+// 2026/10/01 前
+//     → Super
+//
+// 2026/10/01 ～ 2026/12/15
+//     → Normal
+//
+// 2026/12/15 起
+//     → null
+// ============================================================
+
+function getEarlyBird(createdAt) {
+
+    const time = new Date(createdAt);
+
+    if (Number.isNaN(time.getTime())) {
+        throw new Error(
+            `無效的 created_at：${createdAt}`
+        );
+    }
+
+
+    const superEnd =
+        new Date("2026-10-01T00:00:00+08:00");
+
+
+    const normalEnd =
+        new Date("2026-12-15T00:00:00+08:00");
+
+
+    if (time < superEnd) {
+        return "Super";
+    }
+
+
+    if (time < normalEnd) {
+        return "Normal";
+    }
+
+
+    return null;
+}
+
+
+// ============================================================
+// 建立 Team Map
+//
+// join_code
+//      ↓
+// [team_name, team_color]
+//
+// 注意：
+// 這個 Map 只存在 Converter。
+// Runtime 完全不需要。
+// ============================================================
+
+function buildTeamMap(teams) {
+
+    const map = new Map();
+
+
+    for (const team of teams) {
+
+        if (!team.join_code) {
+            throw new Error(
+                `隊伍「${team.team_name}」缺少 join_code`
+            );
+        }
+
+
+        if (map.has(team.join_code)) {
+            throw new Error(
+                `重複的 team join_code：${team.join_code}`
+            );
+        }
+
+
+        if (!team.team_name) {
+            throw new Error(
+                `join_code ${team.join_code} 缺少 team_name`
+            );
+        }
+
+
+        if (!team.team_color) {
+            throw new Error(
+                `隊伍「${team.team_name}」缺少 team_color`
+            );
+        }
+
+
+        map.set(
+            team.join_code,
+            [
+                team.team_name,
+                team.team_color
+            ]
+        );
+    }
+
+
+    return map;
+}
+
+
+// ============================================================
+// 建立 Runtime Player Map
+// ============================================================
+
+function convertPlayers(players, teamMap) {
+
+    const result = new Map();
+
+
+    for (const player of players) {
+
+        // ----------------------------------------------------
+        // player_id
+        // ----------------------------------------------------
+
+        if (!player.player_id) {
+            throw new Error(
+                "發現沒有 player_id 的玩家"
+            );
+        }
+
+
+        if (result.has(player.player_id)) {
+            throw new Error(
+                `重複的 player_id：${player.player_id}`
+            );
+        }
+
+
+        // ----------------------------------------------------
+        // 找隊伍
+        // ----------------------------------------------------
+
+        const team =
+            teamMap.get(player.join_code);
+
+
+        if (!team) {
+            throw new Error(
+                `玩家「${player.player_id}」找不到對應隊伍`
+            );
+        }
+
+
+        const teamName =
+            team[0];
+
+
+        const teamColor =
+            team[1];
+
+
+        // ----------------------------------------------------
+        // Early Bird
+        // ----------------------------------------------------
+
+        const earlyBird =
+            getEarlyBird(player.created_at);
+
+
+        // ----------------------------------------------------
+        // Runtime Array
+        //
+        // [0] isEarlyBird
+        // [1] team name
+        // [2] player name
+        // [3] motto
+        // [4] team color
+        // ----------------------------------------------------
+
+        result.set(
+            player.player_id,
+            [
+                earlyBird,
+                teamName,
+                player.player_name,
+                player.motto,
+                teamColor
+            ]
+        );
+    }
+
+
+    return result;
+}
+
+
+// ============================================================
+// 產生最終 JavaScript
+// ============================================================
+
+function generateRuntimeJS(players) {
+
+    const lines = [];
+
+
+    lines.push(
+        "// AUTO-GENERATED — DO NOT EDIT"
+    );
+
+    lines.push(
+        "// Generated by UHC Data Converter"
+    );
+
+    lines.push("");
+
+
+    lines.push(
+        "export const players = new Map(["
+    );
+
+
+    for (const [playerId, data] of players) {
+
+        lines.push(
+            `    ${JSON.stringify(playerId)}, ${JSON.stringify(data)},`
+        );
+    }
+
+
+    lines.push("]);");
+
+
+    return lines.join("\n");
+}
+
+
+// ============================================================
+// 主程式
+// ============================================================
+
+function convert() {
+
+    const output =
+        document.getElementById("output");
+
+
+    const status =
+        document.getElementById("status");
+
+
+    output.value = "";
+
+
+    try {
+
+        // ----------------------------------------------------
+        // 讀取輸入
+        // ----------------------------------------------------
+
+        const playersText =
+            document.getElementById(
+                "playersInput"
+            ).value;
+
+
+        const teamsText =
+            document.getElementById(
+                "teamsInput"
+            ).value;
+
+
+        // ----------------------------------------------------
+        // JSON Parse
+        // ----------------------------------------------------
+
+        const players =
+            JSON.parse(playersText);
+
+
+        const teams =
+            JSON.parse(teamsText);
+
+
+        // ----------------------------------------------------
+        // 基本驗證
+        // ----------------------------------------------------
+
+        if (!Array.isArray(players)) {
+
+            throw new Error(
+                "Players 必須是 JSON Array"
+            );
+        }
+
+
+        if (!Array.isArray(teams)) {
+
+            throw new Error(
+                "Teams 必須是 JSON Array"
+            );
+        }
+
+
+        // ----------------------------------------------------
+        // Team conversion
+        // ----------------------------------------------------
+
+        const teamMap =
+            buildTeamMap(teams);
+
+
+        // ----------------------------------------------------
+        // Player conversion
+        // ----------------------------------------------------
+
+        const runtimePlayers =
+            convertPlayers(
+                players,
+                teamMap
+            );
+
+
+        // ----------------------------------------------------
+        // Generate JS
+        // ----------------------------------------------------
+
+        const result =
+            generateRuntimeJS(
+                runtimePlayers
+            );
+
+
+        output.value = result;
+
+
+        // ----------------------------------------------------
+        // 成功訊息
+        // ----------------------------------------------------
+
+        status.className =
+            "status success";
+
+
+        status.textContent =
+            `✓ 轉換成功
+
+Players : ${players.length}
+Teams   : ${teams.length}
+Matched : ${runtimePlayers.size}
+
+Runtime 格式：
+
+[0] isEarlyBird
+[1] team name
+[2] player name
+[3] motto
+[4] team color
+
+現在可以直接複製輸出並貼進 Bloxd.io。`;
+
+
+    } catch (error) {
+
+        status.className =
+            "status error";
+
+
+        status.textContent =
+            `❌ 轉換失敗
+
+${error.message}`;
+    }
+}
+
+
+// ============================================================
+// 複製輸出
+// ============================================================
+
+async function copyOutput() {
+
+    const output =
+        document.getElementById("output");
+
+
+    const status =
+        document.getElementById("status");
+
+
+    if (!output.value) {
+
+        status.className =
+            "status error";
+
+        status.textContent =
+            "❌ 沒有可複製的輸出。請先執行轉換。";
+
+        return;
+    }
+
+
+    try {
+
+        await navigator.clipboard.writeText(
+            output.value
+        );
+
+
+        status.className =
+            "status success";
+
+
+        status.textContent =
+            "✓ 已複製到剪貼簿，可以直接貼進 Bloxd.io。";
+
+
+    } catch {
+
+        // 某些瀏覽器可能禁止 clipboard API
+        // 改用傳統方式
+
+        output.select();
+
+        document.execCommand("copy");
+
+
+        status.className =
+            "status success";
+
+
+        status.textContent =
+            "✓ 已嘗試複製輸出。";
+    }
+}
+
+</script>
+
+</body>
+
+</html>
